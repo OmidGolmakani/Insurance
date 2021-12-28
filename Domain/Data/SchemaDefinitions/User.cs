@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace ZarvanOrder.Data.SchemaDefinitions
 {
     public class User :
-       IEntityTypeConfiguration<Model.Entites.User>
+       IEntityTypeConfiguration<Domain.Models.Entities.User>
     {
-        public void Configure(EntityTypeBuilder<Model.Entites.User> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Entities.User> builder)
         {
             builder.ToTable("AspNetUsers")
                 .HasKey(p => p.Id);

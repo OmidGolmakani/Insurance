@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.Data.SchemaDefinitions.Fundamentals
 {
-    public class BaseProperesConfig<TIdentityType, TEntity> : IEntityTypeConfiguration<TEntity>
+    public class ProperesConfig<TIdentityType, TEntity> : IEntityTypeConfiguration<TEntity>
         where TIdentityType : struct
         where TEntity : AuditDeleteEntity<TIdentityType>
     {

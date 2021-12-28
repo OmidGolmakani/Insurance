@@ -1,15 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Data.SchemaDefinitions.Fundamentals;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZarvanOrder.Data.SchemaDefinitions
+namespace Domain.Data.SchemaDefinitions
 {
     public class RolePermission :
-        BaseProperesConfig<long,RolePermission>
+        ProperesConfig<long,Domain.Models.Entities.RolePermission>
     {
         public override void Configure(EntityTypeBuilder<Domain.Models.Entities.RolePermission> builder)
         {
