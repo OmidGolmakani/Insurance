@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Domain.Dtos.Fundamentals.Response
+namespace  Domain.Models.Dtos.Fundamentals.Response
 {
     public class ListResponse<T>
     {

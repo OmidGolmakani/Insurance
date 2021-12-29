@@ -1,4 +1,4 @@
-﻿using Domain.Dtos.Fundamentals.Response;
+﻿using Domain.Models.Dtos.Fundamentals.Response;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Fundamentals.DataService

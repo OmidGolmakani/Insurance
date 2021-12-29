@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.CustomException;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
-using ZarvanOrder.CustomException;
-using ZarvanOrder.Helpers;
-using ZarvanOrder.Interfaces.DataServices;
-using ZarvanOrder.Model.Dtos.Requests.Users;
 
 namespace ZarvanOrder.Filters
 {
@@ -46,7 +42,7 @@ namespace ZarvanOrder.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description =Model.Messages.General.Unauthorized,
+                        Description =Domain.Messages.General.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 
@@ -58,7 +54,7 @@ namespace ZarvanOrder.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description = Model.Messages.General.Unauthorized,
+                        Description = Domain.Messages.General.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 
@@ -69,19 +65,19 @@ namespace ZarvanOrder.Filters
 
 
 
-                var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                var User = JWTTokenManager.ValidateToken(token, userService.GetsAsync(new GetUsersRequest()).Result);
-                if (User == null)
-                {
-                    userService.SignoutAsync();
-                    context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                    Err = new ErrorResponse()
-                    {
-                        Description = Model.Messages.General.Unauthorized,
-                        Code = context.HttpContext.Response.StatusCode
-                    };
-                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
-                }
+                ////var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                ////var User = JWTTokenManager.ValidateToken(token, userService.GetsAsync(new GetUsersRequest()).Result);
+                ////if (User == null)
+                ////{
+                ////    userService.SignoutAsync();
+                ////    context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                ////    Err = new ErrorResponse()
+                ////    {
+                ////        Description = Model.Messages.General.Unauthorized,
+                ////        Code = context.HttpContext.Response.StatusCode
+                ////    };
+                ////    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
+                ////}
                 bool IsAdmin = true;
                 //IsAdmin = true ? (from u in dbContext.Users
                 //                  join ur in dbContext.UserRoles
