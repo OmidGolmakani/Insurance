@@ -1,4 +1,4 @@
-﻿namespace Domain.Dtos.Fundamentals.Request
+﻿namespace  Domain.Models.Dtos.Fundamentals.Request
 {
     public class GetRequest<TIdentity> : BaseRequest
     {

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Domain.CustomException;
+using Domain.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZarvanOrder.Helpers;
 
-namespace ZarvanOrder.Extensions.Other
+namespace Domain.Extensions.Other
 {
     internal static class Extention
     {
@@ -527,19 +526,19 @@ namespace ZarvanOrder.Extensions.Other
             if (List.Count == 0) return null;
             return Newtonsoft.Json.JsonConvert.SerializeObject(List);
         }
-        internal static ZarvanOrder.CustomException.MyException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
+        internal static MyException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
         {
             var Result = Newtonsoft.Json.JsonConvert.SerializeObject((from e in x
-                                                                      select new ZarvanOrder.CustomException.ErrorResponse()
+                                                                      select new ErrorResponse()
                                                                       {
                                                                           Code = e.ErrorCode.ToInt(),
                                                                           Description = e.ErrorMessage
                                                                       }).ToList());
-            return new CustomException.MyException(Result);
+            return new MyException(Result);
         }
-        internal static ZarvanOrder.CustomException.MyException ToJson(this CustomException.MyException exception, CustomException.ErrorResponse error)
+        internal static MyException ToJson(this MyException exception, ErrorResponse error)
         {
-            return new CustomException.MyException(Newtonsoft.Json.JsonConvert.SerializeObject(error));
+            return new (Newtonsoft.Json.JsonConvert.SerializeObject(error));
         }
     }
 }

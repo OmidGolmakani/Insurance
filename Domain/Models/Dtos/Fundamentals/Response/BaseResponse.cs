@@ -1,4 +1,4 @@
-﻿namespace Domain.Dtos.Fundamentals.Response
+﻿namespace  Domain.Models.Dtos.Fundamentals.Response
 {
     public class BaseResponse<TIdentity>
     {
