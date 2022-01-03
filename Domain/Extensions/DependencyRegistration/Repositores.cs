@@ -6,7 +6,7 @@ namespace Domain.Extensions.DependencyRegistration
 {
     public static class Repositores
     {
-        internal static IServiceCollection AddRepositores(this IServiceCollection services)
+        public static IServiceCollection AddRepositores(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             return services;

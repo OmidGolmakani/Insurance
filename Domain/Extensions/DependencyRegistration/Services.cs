@@ -7,9 +7,9 @@ using System;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    internal static class Services
+    public static class Services
     {
-        public static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration,Type Startup)
         {
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>
@@ -17,7 +17,7 @@ namespace Domain.Extensions.DependencyRegistration
                    //options.UseSqlServer(configuration["Data:DefaultConnectionString"],
                    //    options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
                    options.UseSqlServer(configuration["Data:SecondConnectionString"],
-                       options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                       options => options.MigrationsAssembly(Startup.Assembly.FullName));
                });
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();

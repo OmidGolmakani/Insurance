@@ -16,7 +16,7 @@ namespace CustomerAPI
         public IConfiguration _configuration { get; }
         public IWebHostEnvironment _env { get; }
         readonly string Origins = "Insurance";
-        public Startup(IConfiguration configuration, 
+        public Startup(IConfiguration configuration,
                        IWebHostEnvironment env)
         {
             this._configuration = configuration;
@@ -39,7 +39,7 @@ namespace CustomerAPI
             services.MyIdentity();
             services.AddAutoMapperConfig();
             services.AddRepositores();
-            services.AddServises(_configuration);
+            services.AddServises(_configuration, typeof(Startup));
             services.AddControllersWithViews().AddFluentValidation();
             services.AddControllers();
             if (_env.IsDevelopment() == false)

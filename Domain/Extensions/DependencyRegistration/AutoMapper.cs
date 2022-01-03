@@ -4,7 +4,7 @@ namespace Domain.Extensions.DependencyRegistration
 {
     public static class _AutoMapper
     {
-        internal static IServiceCollection AddAutoMapperConfig(this IServiceCollection services)
+        public static IServiceCollection AddAutoMapperConfig(this IServiceCollection services)
         {
             var Config = new AutoMapper.MapperConfiguration(cfg =>
             {
