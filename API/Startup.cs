@@ -9,7 +9,7 @@ using Domain.Extensions.DependencyRegistration;
 using Domain.Filters;
 using FluentValidation.AspNetCore;
 
-namespace CustomerAPI
+namespace OnlineSellAPI
 {
     public class Startup
     {
