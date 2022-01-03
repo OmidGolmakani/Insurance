@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Dtos.Fundamentals.Request
+﻿namespace Domain.Models.Dtos.Fundamentals.Requests
 {
     public class AddRequest : BaseRequest
     {

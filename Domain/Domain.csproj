@@ -35,6 +35,6 @@
   <ItemGroup>
     <Using Include="Domain.Extensions.Other" />
     <Using Include="Domain.Models.Dtos.Fundamentals.Response" />
-    <Using Include="Domain.Models.Dtos.Fundamentals.Request" />
+    <Using Include="Domain.Models.Dtos.Fundamentals.Requests" />
   </ItemGroup>
 </Project>

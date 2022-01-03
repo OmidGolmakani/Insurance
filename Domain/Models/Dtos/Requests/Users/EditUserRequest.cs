@@ -1,4 +1,4 @@
-﻿using Domain.Models.Dtos.Fundamentals.Request;
+﻿using Domain.Models.Dtos.Fundamentals.Requests;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
