@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    internal static class Repositores
+    public static class Repositores
     {
         internal static IServiceCollection AddRepositores(this IServiceCollection services)
         {

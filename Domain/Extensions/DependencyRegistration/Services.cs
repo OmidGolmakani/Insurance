@@ -9,7 +9,7 @@ namespace Domain.Extensions.DependencyRegistration
 {
     internal static class Services
     {
-        internal static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>

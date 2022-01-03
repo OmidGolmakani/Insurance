@@ -2,7 +2,7 @@
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    internal static class _AutoMapper
+    public static class _AutoMapper
     {
         internal static IServiceCollection AddAutoMapperConfig(this IServiceCollection services)
         {

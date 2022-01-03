@@ -6,9 +6,9 @@ using Microsoft.OpenApi.Models;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    internal static class Swagger
+    public static class Swagger
     {
-        internal static IServiceCollection AddSwagger(this IServiceCollection services, IWebHostEnvironment env)
+        public static IServiceCollection AddSwagger(this IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddSwaggerGen(c =>
             {

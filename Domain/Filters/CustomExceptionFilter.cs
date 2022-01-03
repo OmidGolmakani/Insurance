@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ZarvanOrder.Filters
+namespace Domain.Filters
 {
     public class CustomExceptionFilter : ExceptionFilterAttribute
     {

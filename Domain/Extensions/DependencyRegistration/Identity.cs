@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    internal static class Identity
+    public static class Identity
     {
-        internal static IServiceCollection MyIdentity(this IServiceCollection services)
+        public static IServiceCollection MyIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, Role>(config =>
             {

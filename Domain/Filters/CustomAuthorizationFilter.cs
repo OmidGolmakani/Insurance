@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Filters
+namespace Domain.Filters
 {
     public class CustomAuthorizationFilter : ActionFilterAttribute, IAllowAnonymous
     {
@@ -78,7 +78,7 @@ namespace ZarvanOrder.Filters
                 ////    };
                 ////    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
                 ////}
-                bool IsAdmin = true;
+                //bool IsAdmin = true;
                 //IsAdmin = true ? (from u in dbContext.Users
                 //                  join ur in dbContext.UserRoles
                 //                  on u.Id equals ur.UserId
