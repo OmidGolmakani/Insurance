@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{14E8A058-771F-4F8D-88FC-4AC784E8BD8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineSellAPI", "API\OnlineSell\OnlineSellAPI.csproj", "{A68078E1-E05B-448E-B710-D2974E338629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineSell", "API\OnlineSell\OnlineSell.csproj", "{A68078E1-E05B-448E-B710-D2974E338629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
