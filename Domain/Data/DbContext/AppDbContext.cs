@@ -15,15 +15,14 @@ namespace Domain.Data.DbContext
                                                   RoleClaim,
                                                   UserToken>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options,
-                            IHttpContextAccessor httpContext) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
             
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-         
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             base.OnModelCreating(modelBuilder);
 
         }

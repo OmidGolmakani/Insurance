@@ -14,10 +14,7 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>
                {
-                   //options.UseSqlServer(configuration["Data:DefaultConnectionString"],
-                   //    options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                   options.UseSqlServer(configuration["Data:ConnectionString"],
-                       options => options.MigrationsAssembly(Startup.Assembly.FullName));
+                   options.UseSqlServer(configuration["Data:ConnectionString"]);
                });
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();
