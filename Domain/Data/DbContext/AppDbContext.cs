@@ -23,6 +23,7 @@ namespace Domain.Data.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
             base.OnModelCreating(modelBuilder);
 
         }
