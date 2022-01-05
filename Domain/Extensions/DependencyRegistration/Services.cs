@@ -16,7 +16,7 @@ namespace Domain.Extensions.DependencyRegistration
                {
                    //options.UseSqlServer(configuration["Data:DefaultConnectionString"],
                    //    options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                   options.UseSqlServer(configuration["Data:SecondConnectionString"],
+                   options.UseSqlServer(configuration["Data:ConnectionString"],
                        options => options.MigrationsAssembly(Startup.Assembly.FullName));
                });
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
