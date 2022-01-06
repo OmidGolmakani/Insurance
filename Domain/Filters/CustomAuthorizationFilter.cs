@@ -42,7 +42,7 @@ namespace Domain.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description =Domain.Messages.General.Unauthorized,
+                        Description =Messages.GlobalMessags.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 
@@ -54,7 +54,7 @@ namespace Domain.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description = Domain.Messages.General.Unauthorized,
+                        Description = Domain.Messages.GlobalMessags.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 

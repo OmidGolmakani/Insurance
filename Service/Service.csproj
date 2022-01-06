@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="OnlineSell\" />
+    <Folder Include="Data\OnlineSell\" />
   </ItemGroup>
 
   <ItemGroup>

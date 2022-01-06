@@ -9,6 +9,7 @@ namespace Domain.Interfaces.Fundamentals.Repository
     public interface IGetRepository<TGetRequest, TGetsRequest, TResponse>
     {
         Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false);
-        IQueryable<TResponse> Get(TGetsRequest request, bool includeDeleted = false);
+        Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false);
+        Task<int> Count(TGetsRequest request, bool includeDeleted = false);
     }
 }
