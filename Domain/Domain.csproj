@@ -34,5 +34,6 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Models\Dtos\Requests\Pages\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>
