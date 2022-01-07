@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Globals.Repositores
 {
-    public interface IUserRepository : IRepository<long, User>, 
-                                       IGetRepository<GetUserRequest, GetUsersRequest, UserResponse>
+    public interface IUserRepository : IRepository<long, AspNetUsers, GetUserRequest, GetUsersRequest, UserResponse>
     {
         Task<bool> isUniqueEmailAsync(UniqueEmailValodationRequest request);
         Task<bool> isUniquePhoneNumberAsync(UniquePhoneNumber request);

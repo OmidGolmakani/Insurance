@@ -18,5 +18,15 @@ namespace Domain.Data.DbContext
         {
             return _dbFactory.DbContext.SaveChangesAsync();
         }
+        public Task OpenConnectionAsync()
+        {
+            if (_dbFactory.DbConnection.State != System.Data.ConnectionState.Open) return _dbFactory.DbConnection.OpenAsync();
+            return _dbFactory.DbConnection.OpenAsync();
+        }
+        public Task CloseConnectionAsync()
+        {
+            if (_dbFactory.DbConnection.State != System.Data.ConnectionState.Open) return _dbFactory.DbConnection.CloseAsync();
+            return _dbFactory.DbConnection.CloseAsync();
+        }
     }
 }

@@ -10,14 +10,12 @@ using Domain.Models.Dtos.Responses.Users;
 using Domain.Models.Validations;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Data.Global
+namespace Domain.Services.Data.Global
 {
     public class UserService : IUserService
     {
@@ -36,7 +34,7 @@ namespace Service.Data.Global
 
         public async Task<UserResponse> Add(AddUserRequest request)
         {
-            var entity = _mapper.Map<Domain.Models.Entities.User>(request);
+            var entity = _mapper.Map<Domain.Models.Entities.AspNetUsers>(request);
             entity.PasswordHash = request.Password;
             entity.PhoneNumberConfirmed = true;
             UserValidation validator = new UserValidation(this, _mapper);
@@ -52,14 +50,14 @@ namespace Service.Data.Global
 
         public async Task BatchDelete(IEnumerable<DeleteUserRequest> request)
         {
-            var entites = _mapper.Map<IEnumerable<Domain.Models.Entities.User>>(request);
+            var entites = _mapper.Map<IEnumerable<Domain.Models.Entities.AspNetUsers>>(request);
             _userRepository.DeleteBatch(entites);
             await Task.Delay(0);
         }
 
         public async Task BatchUpdate(IEnumerable<EditUserRequest> request)
         {
-            var entites = _mapper.Map<IEnumerable<Domain.Models.Entities.User>>(request);
+            var entites = _mapper.Map<IEnumerable<Domain.Models.Entities.AspNetUsers>>(request);
             _userRepository.UpdateBatch(entites);
             await Task.Delay(0);
         }
@@ -71,11 +69,11 @@ namespace Service.Data.Global
 
         public async Task Delete(DeleteUserRequest request)
         {
-            Domain.Models.Entities.User entity = new();
-            _mapper.Map<UserResponse, Domain.Models.Entities.User>(await _userRepository.GetById(_mapper.Map<GetUserRequest>(request)), entity);
+            Domain.Models.Entities.AspNetUsers entity = new();
+            _mapper.Map<UserResponse, Domain.Models.Entities.AspNetUsers>(await _userRepository.GetById(_mapper.Map<GetUserRequest>(request)), entity);
             if (entity == null)
                 throw new MyException(System.Net.HttpStatusCode.NotFound, GlobalMessags.UserNotFound);
-            _mapper.Map<DeleteUserRequest, Domain.Models.Entities.User>(request, entity);
+            _mapper.Map<DeleteUserRequest, Domain.Models.Entities.AspNetUsers>(request, entity);
             entity.LockoutEnabled = true;
             entity.LockoutEnd = DateTimeOffset.MaxValue;
             _userRepository.Delete(entity);
@@ -130,17 +128,17 @@ namespace Service.Data.Global
 
         public async Task<UserResponse> Update(EditUserRequest request)
         {
-            Domain.Models.Entities.User entity = new();
-            _mapper.Map<UserResponse, Domain.Models.Entities.User>(await _userRepository.GetById(_mapper.Map<GetUserRequest>(request)), entity);
+            Domain.Models.Entities.AspNetUsers entity = new();
+            _mapper.Map<UserResponse, Domain.Models.Entities.AspNetUsers>(await _userRepository.GetById(_mapper.Map<GetUserRequest>(request)), entity);
             if (entity == null)
                 throw new MyException(System.Net.HttpStatusCode.NotFound, GlobalMessags.UserNotFound);
-            _mapper.Map<EditUserRequest, Domain.Models.Entities.User>(request, entity);
+            _mapper.Map<EditUserRequest, Domain.Models.Entities.AspNetUsers>(request, entity);
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
             _userRepository.Update(entity);
             var model = new UserResponse();
             await Task.Delay(0);
-            return _mapper.Map<Domain.Models.Entities.User, UserResponse>(entity, model);
+            return _mapper.Map<Domain.Models.Entities.AspNetUsers, UserResponse>(entity, model);
         }
 
         public Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token)

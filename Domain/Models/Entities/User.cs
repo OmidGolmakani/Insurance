@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class User : IdentityUser<long>, IAuditEntity<long>, IDeleteEntity
+    public class AspNetUsers : IdentityUser<long>, IAuditEntity<long>, IDeleteEntity
     {
-        public User()
+        public AspNetUsers()
         {
         }
         public string Name { get; set; }

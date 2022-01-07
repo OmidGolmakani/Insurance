@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Fundamentals.Repository
 {
-    public interface IGetRepository<TGetRequest, TGetsRequest, TResponse>
+    public interface IGetRepository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse>
     {
         Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false);
         Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false);

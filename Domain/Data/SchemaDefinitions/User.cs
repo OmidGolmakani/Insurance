@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Domain.Data.SchemaDefinitions
 {
     public class User :
-       IEntityTypeConfiguration<Domain.Models.Entities.User>
+       IEntityTypeConfiguration<Domain.Models.Entities.AspNetUsers>
     {
-        public void Configure(EntityTypeBuilder<Domain.Models.Entities.User> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Entities.AspNetUsers> builder)
         {
             builder.ToTable("AspNetUsers")
                 .HasKey(p => p.Id);

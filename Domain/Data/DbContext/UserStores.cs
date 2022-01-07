@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Domain.Data.DbContext
 {
-    public class UserStores : UserStore<User,
+    public class UserStores : UserStore<AspNetUsers,
                                         Role,
                                         AppDbContext, 
                                         long, 

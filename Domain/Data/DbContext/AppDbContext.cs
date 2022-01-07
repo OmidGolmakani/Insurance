@@ -6,7 +6,7 @@ using Domain.Models.Entities;
 
 namespace Domain.Data.DbContext
 {
-    public class AppDbContext : IdentityDbContext<User,
+    public class AppDbContext : IdentityDbContext<AspNetUsers,
                                                   Role,
                                                   long,
                                                   UserClaim,

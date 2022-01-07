@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Validations
 {
-    public class UserValidation : AbstractValidator<Entities.User>
+    public class UserValidation : AbstractValidator<Entities.AspNetUsers>
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -32,25 +32,25 @@ namespace Domain.Models.Validations
             RuleFor(p => p).Must(IsUniqueNationalCodeAsync).WithMessage("کد ملی غیر مجاز می باشد");
 
         }
-        private async Task<bool> IsUniqueUserNameAsync(Entities.User request)
+        private async Task<bool> IsUniqueUserNameAsync(Entities.AspNetUsers request)
         {
             Dtos.Requests.Users.UniqueUserValidationRequst _request = new Dtos.Requests.Users.UniqueUserValidationRequst();
-            _mapper.Map<Entities.User, Dtos.Requests.Users.UniqueUserValidationRequst>(request, _request);
+            _mapper.Map<Entities.AspNetUsers, Dtos.Requests.Users.UniqueUserValidationRequst>(request, _request);
             return await _userService.isUniqueUserAsync(_request);
         }
-        private async Task<bool> IsUniquePhoneNumberAsync(Entities.User request)
+        private async Task<bool> IsUniquePhoneNumberAsync(Entities.AspNetUsers request)
         {
             Dtos.Requests.Users.UniquePhoneNumber _request = new Dtos.Requests.Users.UniquePhoneNumber();
-            _mapper.Map<Entities.User, Dtos.Requests.Users.UniquePhoneNumber>(request, _request);
+            _mapper.Map<Entities.AspNetUsers, Dtos.Requests.Users.UniquePhoneNumber>(request, _request);
             return await _userService.isUniquePhoneNumberAsync(_request);
         }
-        private async Task<bool> IsUniqueEmailAsync(Entities.User request)
+        private async Task<bool> IsUniqueEmailAsync(Entities.AspNetUsers request)
         {
             Dtos.Requests.Users.UniqueEmailValodationRequest _request = new Dtos.Requests.Users.UniqueEmailValodationRequest();
-            _mapper.Map<Entities.User, Dtos.Requests.Users.UniqueEmailValodationRequest>(request, _request);
+            _mapper.Map<Entities.AspNetUsers, Dtos.Requests.Users.UniqueEmailValodationRequest>(request, _request);
             return await _userService.isUniqueEmailAsync(_request);
         }
-        private bool IsUniqueNationalCodeAsync(Entities.User request)
+        private bool IsUniqueNationalCodeAsync(Entities.AspNetUsers request)
         {
             return request.NationalCode == null || request.NationalCode.Length <= 0 || request.NationalCode.Length == 10 ? true : false;
         }
