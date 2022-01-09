@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
+using Domain.Extensions.Other;
 namespace Domain.Repositories.Fundamentals
 {
     public class Repository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse> : IRepository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse>
@@ -68,7 +68,7 @@ namespace Domain.Repositories.Fundamentals
             return DbSet.Update(entity).Entity;
         }
 
-        public virtual void UpdateBatch(System.Collections.Generic.IEnumerable<TEntity> entities)
+        public virtual void UpdateBatch(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
@@ -82,7 +82,7 @@ namespace Domain.Repositories.Fundamentals
             return DbSet.Where(expression).AsNoTracking().Count();
         }
 
-        public virtual void DeleteBatch(System.Collections.Generic.IEnumerable<TEntity> entities)
+        public virtual void DeleteBatch(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
@@ -91,9 +91,13 @@ namespace Domain.Repositories.Fundamentals
             }
             DbSet.RemoveRange(entities);
         }
-        private string Query(TGetsRequest request, bool includeDeleted = false)
+        private string GetColumns(TGetsRequest request, bool includeDeleted = false)
         {
-            string q = $"SELECT * FROM {typeof(TEntity).Name}";
+            return request.GetType().GetProperties().ToList().Select(p => p.Name).ToList().ListToString(",")
+        }
+        private string Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
+        {
+            string q = GetCount == false ? $"SELECT {GetColumns(request, includeDeleted)} FROM {typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM {typeof(TEntity).Name}";
             var Propertes = request.GetType().GetProperties();
             string where = "";
             if (request != null)
@@ -143,7 +147,7 @@ namespace Domain.Repositories.Fundamentals
 
         public virtual Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
         {
-            return DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT * FROM {typeof(TEntity).Name} WHERE {nameof(request.Id)}={request.Id}");
+            return DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {GetColumns(request, includeDeleted)} FROM {typeof(TEntity).Name} WHERE {nameof(request.Id)}={request.Id}");
         }
 
         public virtual Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false)
