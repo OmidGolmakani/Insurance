@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Domain.Data.SchemaDefinitions
 {
     public class RolePermission :
-        ProperesConfig<long,Domain.Models.Entities.RolePermission>
+        ProperesConfig<long,Models.Entities.RolePermission>
     {
-        public override void Configure(EntityTypeBuilder<Domain.Models.Entities.RolePermission> builder)
+        public override void Configure(EntityTypeBuilder<Models.Entities.RolePermission> builder)
         {
             builder.ToTable("RolePermission");
             builder.Property(p => p.RoleId).IsRequired();

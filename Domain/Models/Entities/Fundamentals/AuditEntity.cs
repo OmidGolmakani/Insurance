@@ -3,7 +3,9 @@ using System;
 
 namespace Domain.Models.Entities.Fundamentals
 {
-    public abstract class AuditDeleteEntity<TIdentity> : DeleteEntity, IAuditEntity<TIdentity> where TIdentity : struct
+    public abstract class AuditDeleteEntity<TIdentity> : DeleteEntity,
+        IAuditEntity<TIdentity>
+        where TIdentity : struct
     {
         public TIdentity Id { get; set; }
         public virtual DateTime CreatedDate { get; set; }

@@ -24,8 +24,13 @@ namespace Domain.Data.DbContext
         {
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
+            //modelBuilder.ApplyConfiguration(new SchemaDefinitions.Company());
             base.OnModelCreating(modelBuilder);
 
         }
+        public DbSet<RolePermission> RolePermissions { get; set; }
+        //public DbSet<Company> Companies { get; set; }
+
+
     }
 }
