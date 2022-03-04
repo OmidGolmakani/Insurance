@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.SchemaDefinitions
 {
-    public class Company : ProperesConfig<long, Models.Entities.Company>
+    public class InsuranceCompany : ProperesConfig<long, Models.Entities.InsuranceCompany>
     {
-        public override void Configure(EntityTypeBuilder<Models.Entities.Company> builder)
+        public override void Configure(EntityTypeBuilder<Models.Entities.InsuranceCompany> builder)
         {
             builder.ToTable("Company");
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Property(p => p.CustomerScore).IsRequired();
-            builder.Property(p=> p.InsuranceScore).IsRequired();
             base.Configure(builder);
         }
     }

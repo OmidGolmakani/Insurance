@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class InsuranceCompany : AuditDeleteEntity<long>
+    public class InsuranceTitle : AuditDeleteEntity<int>
     {
+        public decimal Code { get; set; }
+        public byte level { get; set; }
         public string Name { get; set; }
-        public ICollection<InsurancePointParameter> InsurancePoints { get; set; }
+        public string Description { get; set; }
     }
 }

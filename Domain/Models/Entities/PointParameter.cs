@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class InsuranceCompany : AuditDeleteEntity<long>
+    public class PointParameter : AuditDeleteEntity<int>
     {
         public string Name { get; set; }
-        public ICollection<InsurancePointParameter> InsurancePoints { get; set; }
+        public bool IsRequired { get; set; }
+        public bool Active { get; set; }
+        public ICollection<InsurancePointParameter> InsurancePointParameters { get; set; }
     }
 }

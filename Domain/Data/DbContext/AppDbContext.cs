@@ -18,18 +18,27 @@ namespace Domain.Data.DbContext
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
-            
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
-            //modelBuilder.ApplyConfiguration(new SchemaDefinitions.Company());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceCompany());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.PointParameters());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePointParameter());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePoint());
+
             base.OnModelCreating(modelBuilder);
 
         }
         public DbSet<RolePermission> RolePermissions { get; set; }
-        //public DbSet<Company> Companies { get; set; }
+        public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
+        public DbSet<PointParameter> PointParameters { get; set; }
+        public DbSet<InsurancePoint> InsurancePoints { get; set; }
+        public DbSet<InsurancePointParameter> InsurancePointParameters { get; set; }
+
+
 
 
     }
