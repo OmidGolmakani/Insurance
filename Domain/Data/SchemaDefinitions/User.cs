@@ -16,6 +16,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.CreatedBy).HasMaxLength(120);
             builder.Property(p => p.DeletedDate);
             builder.Property(p => p.DeletedBy).HasMaxLength(120);
+            builder.Property(p=>  p.LanguageId).IsRequired();
 
             builder.Property(p => p.Name).HasMaxLength(60);
             builder.Property(p => p.Family).HasMaxLength(60);

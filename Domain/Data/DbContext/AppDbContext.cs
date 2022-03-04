@@ -28,6 +28,12 @@ namespace Domain.Data.DbContext
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.PointParameters());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePointParameter());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePoint());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceTitle());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.Language());
+
+            #region Seeding
+            modelBuilder.Entity<Language>().HasData(new Seeding.Language().GetSeeding());
+            #endregion Seeding
 
             base.OnModelCreating(modelBuilder);
 

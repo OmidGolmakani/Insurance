@@ -17,6 +17,7 @@ namespace Domain.Data.SchemaDefinitions.Fundamentals
             builder.Property(p => p.CreatedBy).HasMaxLength(120);
             builder.Property(p => p.DeletedDate);
             builder.Property(p => p.DeletedBy).HasMaxLength(120);
+            builder.Property(p=> p.LanguageId).IsRequired();
         }
     }
 }

@@ -9,9 +9,10 @@ namespace Domain.Models.Entities
 {
     public class InsuranceTitle : AuditDeleteEntity<int>
     {
-        public decimal Code { get; set; }
+        public decimal? Code { get; set; }
         public byte level { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
     }
 }
