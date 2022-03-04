@@ -13,6 +13,7 @@ namespace Domain.Models.Entities.Fundamentals
         public virtual DateTime? LastModified { get; set; }
         public virtual string LastModifiedBy { get; set; }
         public virtual int LanguageId { get; set; }
+        public virtual Language Language { get; set; }
 
     }
 }

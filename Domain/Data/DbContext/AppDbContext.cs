@@ -6,7 +6,7 @@ using Domain.Models.Entities;
 
 namespace Domain.Data.DbContext
 {
-    public class AppDbContext : IdentityDbContext<AspNetUsers,
+    public class AppDbContext : IdentityDbContext<User,
                                                   Role,
                                                   long,
                                                   UserClaim,
@@ -22,6 +22,7 @@ namespace Domain.Data.DbContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region SchemaDefinitions
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceCompany());
@@ -30,6 +31,7 @@ namespace Domain.Data.DbContext
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePoint());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceTitle());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Language());
+            #endregion SchemaDefinitions
 
             #region Seeding
             modelBuilder.Entity<Language>().HasData(new Seeding.Language().GetSeeding());
@@ -38,11 +40,14 @@ namespace Domain.Data.DbContext
             base.OnModelCreating(modelBuilder);
 
         }
+        #region DbSets
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
         public DbSet<PointParameter> PointParameters { get; set; }
         public DbSet<InsurancePoint> InsurancePoints { get; set; }
         public DbSet<InsurancePointParameter> InsurancePointParameters { get; set; }
+        public DbSet<Language> Languages { get; set; } 
+        #endregion DbSets
 
 
 

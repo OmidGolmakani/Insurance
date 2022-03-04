@@ -9,7 +9,7 @@ namespace Domain.Extensions.DependencyRegistration
     {
         public static IServiceCollection MyIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<AspNetUsers, Role>(config =>
+            services.AddIdentity<User, Role>(config =>
             {
                 config.Password.RequireDigit = false;
                 //config.Password.RequiredLength = 10;

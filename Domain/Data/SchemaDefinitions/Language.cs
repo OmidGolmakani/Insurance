@@ -18,6 +18,8 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Direction).IsRequired();
             base.Configure(builder);
             builder.Ignore(p => p.LanguageId);
+            builder.Ignore(p => p.Language);
+
         }
     }
 }

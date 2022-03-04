@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Domain.Data.SchemaDefinitions
 {
     public class User :
-       IEntityTypeConfiguration<Domain.Models.Entities.AspNetUsers>
+       IEntityTypeConfiguration<Domain.Models.Entities.User>
     {
-        public void Configure(EntityTypeBuilder<Domain.Models.Entities.AspNetUsers> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Entities.User> builder)
         {
             builder.ToTable("AspNetUsers")
                 .HasKey(p => p.Id);
@@ -16,7 +16,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.CreatedBy).HasMaxLength(120);
             builder.Property(p => p.DeletedDate);
             builder.Property(p => p.DeletedBy).HasMaxLength(120);
-            builder.Property(p=>  p.LanguageId).IsRequired();
+            builder.Property(p => p.LanguageId).IsRequired();
 
             builder.Property(p => p.Name).HasMaxLength(60);
             builder.Property(p => p.Family).HasMaxLength(60);
@@ -38,6 +38,11 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Tel).HasMaxLength(11);
             builder.Property(p => p.Address).HasMaxLength(200);
             builder.Property(p => p.ReasonDeactivation).HasMaxLength(11);
+            builder.HasOne(p => p.Language)
+                   .WithMany(p => p.User)
+                   .OnDelete(DeleteBehavior.NoAction)
+                   .HasForeignKey(p => p.LanguageId);
+
         }
     }
 }

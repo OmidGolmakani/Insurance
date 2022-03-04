@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class AspNetUsers : IdentityUser<long>, IAuditEntity<long>, IDeleteEntity
+    public class User : IdentityUser<long>, IAuditEntity<long>, IDeleteEntity
     {
-        public AspNetUsers()
+        public User()
         {
         }
         public string Name { get; set; }
@@ -39,5 +39,6 @@ namespace Domain.Models.Entities
         public DateTime? DeletedDate { get; set; }
         public string DeletedBy { get; set; }
         public int LanguageId { get; set; }
+        public Language Language { get; set; }
     }
 }

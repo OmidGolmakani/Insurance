@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public class UserRepository : Repository<long, AspNetUsers, GetUserRequest, GetUsersRequest, UserResponse>, IUserRepository
+    public class UserRepository : Repository<long, User, GetUserRequest, GetUsersRequest, UserResponse>, IUserRepository
     {
         public UserRepository(DbFactory dbFactory, IMapper mapper) : base(dbFactory, mapper)
         {
