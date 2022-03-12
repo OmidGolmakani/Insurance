@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class InsuranceTitle : AuditDeleteEntity<int>
+    public class UserGroup : AuditDeleteEntity<long>
     {
-        public decimal? Code { get; set; }
-        public int? ParentId { get; set; }
-        public byte level { get; set; }
+        public long UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
-        public InsuranceTitle Insurance { get; set; }
-        public ICollection<InsuranceTitle> Insurances { get; set; }
+        public User User { get; set; }
     }
 }

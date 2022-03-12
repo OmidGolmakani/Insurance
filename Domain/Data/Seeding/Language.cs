@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Interfaces.Fundamentals.DataSeeding;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Data.Seeding
 {
-    public class Language
+    public class Language : ISeeding<Models.Entities.Language,int>
     {
         public Language()
         {

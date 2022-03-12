@@ -26,11 +26,11 @@ namespace Domain.Models.Entities
         public override string NormalizedEmail { get => base.NormalizedEmail; set => base.NormalizedEmail = value; }
         public override string SecurityStamp { get => base.SecurityStamp; set => base.SecurityStamp = value; }
         public override string ConcurrencyStamp { get => base.ConcurrencyStamp; set => base.ConcurrencyStamp = value; }
-        public string NationalCode { get; set; }
         public bool? HasImage { get; set; }
-        public string Tel { get; set; }
-        public string Address { get; set; }
         public string ReasonDeactivation { get; set; }
+        public byte PersonType { get; set; }
+        public string NationalId { get; set; }
+        public bool Block { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? LastModified { get; set; }
@@ -40,5 +40,12 @@ namespace Domain.Models.Entities
         public string DeletedBy { get; set; }
         public int LanguageId { get; set; }
         public Language Language { get; set; }
+        public ICollection<Company> Companies { get; set; }
+        public ICollection<Person> People { get; set; }
+        public ICollection<UserDetail> UserDetails { get; set; }
+        public ICollection<UserGroup> UserGroups { get; set; }
+
+
+
     }
 }

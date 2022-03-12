@@ -13,7 +13,7 @@ namespace Domain.Data.SchemaDefinitions
     {
         public override void Configure(EntityTypeBuilder<Models.Entities.InsuranceCompany> builder)
         {
-            builder.ToTable("Company");
+            builder.ToTable("InsuranceCompany");
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
             base.Configure(builder);
         }

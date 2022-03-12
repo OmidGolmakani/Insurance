@@ -14,6 +14,12 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.level).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(500);
             builder.Property(p => p.Active).IsRequired().HasDefaultValueSql("1");
+            builder.Property(p => p.ParentId);
+            builder.HasOne(p => p.Insurance).
+                      WithMany(p => p.Insurances).
+                      HasForeignKey(p => p.ParentId).
+                      OnDelete(DeleteBehavior.NoAction);
+            builder.HasIndex(p => new { p.Code, p.ParentId, p.IsDeleted }).IsUnique();
             base.Configure(builder);
         }
     }

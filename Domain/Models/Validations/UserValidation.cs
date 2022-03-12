@@ -52,7 +52,7 @@ namespace Domain.Models.Validations
         }
         private bool IsUniqueNationalCodeAsync(Entities.User request)
         {
-            return request.NationalCode == null || request.NationalCode.Length <= 0 || request.NationalCode.Length == 10 ? true : false;
+            return request.NationalId == null || request.NationalId.Length <= 0 || request.NationalId.Length == 10 ? true : false;
         }
     }
 }

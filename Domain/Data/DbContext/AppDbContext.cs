@@ -31,6 +31,14 @@ namespace Domain.Data.DbContext
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsurancePoint());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceTitle());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Language());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetail());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetailField());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetailLookupField());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.Person());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.Company());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserGroup());
+
+
             #endregion SchemaDefinitions
 
             #region Seeding
@@ -46,7 +54,15 @@ namespace Domain.Data.DbContext
         public DbSet<PointParameter> PointParameters { get; set; }
         public DbSet<InsurancePoint> InsurancePoints { get; set; }
         public DbSet<InsurancePointParameter> InsurancePointParameters { get; set; }
-        public DbSet<Language> Languages { get; set; } 
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<UserDetail>  UserDetails { get; set; }
+        public DbSet<UserDetailField> UserDetailFields { get; set; }
+        public DbSet<UserDetailLookupField> UserDetailLookups { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+
+
         #endregion DbSets
 
 

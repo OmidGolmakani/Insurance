@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Entities
 {
-    public class Company : AuditDeleteEntity<long>
+    public class Person : AuditDeleteEntity<long>
     {
         public long UserId { get; set; }
         public string Name { get; set; }
-        public string RegisterCode { get; set; }
-        public DateTime RegisterDate { get; set; }
+        public string Family { get; set; }
+        public DateTime? BirthDate { get; set; }
         public User User { get; set; }
     }
 }

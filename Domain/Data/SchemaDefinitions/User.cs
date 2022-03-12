@@ -34,10 +34,11 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.TwoFactorEnabled);
             builder.Property(p => p.LockoutEnd);
             builder.Property(p => p.LockoutEnabled);
-            builder.Property(p => p.NationalCode).HasMaxLength(10);
-            builder.Property(p => p.Tel).HasMaxLength(11);
-            builder.Property(p => p.Address).HasMaxLength(200);
+            builder.Property(p => p.NationalId).HasMaxLength(10);
             builder.Property(p => p.ReasonDeactivation).HasMaxLength(11);
+            builder.Property(p => p.PersonType).IsRequired();
+            builder.Property(p => p.Block).HasDefaultValueSql("0");
+
             builder.HasOne(p => p.Language)
                    .WithMany(p => p.User)
                    .OnDelete(DeleteBehavior.NoAction)
