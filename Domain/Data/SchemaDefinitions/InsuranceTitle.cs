@@ -9,7 +9,7 @@ namespace Domain.Data.SchemaDefinitions
         public override void Configure(EntityTypeBuilder<Models.Entities.InsuranceTitle> builder)
         {
             builder.ToTable("InsuranceTitle");
-            builder.Property(p => p.Code);
+            builder.Property(p => p.Code).HasPrecision(10, 2);
             builder.Property(p => p.Name).HasMaxLength(150).IsRequired();
             builder.Property(p => p.level).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(500);
