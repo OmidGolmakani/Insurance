@@ -8,6 +8,11 @@ using Microsoft.Extensions.Hosting;
 using Domain.Extensions.DependencyRegistration;
 using Domain.Filters;
 using FluentValidation.AspNetCore;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Resources;
+using System.Reflection;
 
 namespace OnlineSellAPI
 {
@@ -24,6 +29,7 @@ namespace OnlineSellAPI
         }
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
             services.AddCors(options =>
             {
@@ -39,8 +45,8 @@ namespace OnlineSellAPI
             services.MyIdentity();
             services.AddAutoMapperConfig();
             services.AddRepositores();
-            services.AddServises(_configuration, typeof(Startup));
-            services.AddControllersWithViews().AddFluentValidation();
+            services.AddGlobalServises(_configuration, typeof(Startup));
+            services.AddDataServises();
             services.AddControllers();
             if (_env.IsDevelopment() == false)
             {
@@ -68,13 +74,16 @@ namespace OnlineSellAPI
             {
                 //app.ConfigureExceptionHandler(logger);
             }
+            
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ZarvanOrder v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Insurance v1"));
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors(Origins);
+           
+            app.UseStaticFiles();
             //app.UseAuthentication();
             app.UseAuthorization();
 

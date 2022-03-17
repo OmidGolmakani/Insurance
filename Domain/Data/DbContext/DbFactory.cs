@@ -35,8 +35,12 @@ namespace Domain.Data.DbContext
             {
                 _disposed = true;
                 _dbContext.Dispose();
-                _dbConnection.Dispose();
+               
 
+            }
+            if (_dbConnection != null)
+            {
+                _dbConnection.Dispose();
             }
         }
     }

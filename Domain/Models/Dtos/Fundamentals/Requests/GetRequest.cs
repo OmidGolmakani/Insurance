@@ -1,8 +1,11 @@
-﻿namespace Domain.Models.Dtos.Fundamentals.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Models.Dtos.Fundamentals.Requests
 {
     public class GetRequest<TIdentity> : BaseRequest, Interfaces.Fundamentals.Dto.IGetDto<TIdentity>
         where TIdentity : struct
     {
+        [Required]
         public virtual TIdentity Id { get; set; }
     }
 }

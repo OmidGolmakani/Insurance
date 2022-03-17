@@ -13,6 +13,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Name).HasMaxLength(70);
             builder.Property(p => p.Family).HasMaxLength(70);
             builder.Property(p => p.BirthDate);
+            builder.Property(p=> p.Gender).IsRequired();
             builder.HasOne(p => p.User)
                .WithMany(p => p.People)
                .HasForeignKey(p => p.UserId)

@@ -3,7 +3,7 @@ using Domain.Interfaces.Globals.DataServices;
 using FluentValidation;
 using System.Threading.Tasks;
 
-namespace Domain.Models.Validations
+namespace Domain.Models.Validations.User
 {
     public class UserValidation : AbstractValidator<Entities.User>
     {
@@ -15,21 +15,20 @@ namespace Domain.Models.Validations
         {
             this._userService = userService;
             _mapper = mapper;
-            RuleFor(p => p.Id).NotNull().WithMessage("آی دی اجباری می باشد");
-            RuleFor(p => p.Name).NotNull().WithMessage("نام اجباری می باشد");
-            RuleFor(p => p.Family).NotNull().WithMessage("نام خانوادگی اجباری می باشد");
-            RuleFor(p => p.UserName).NotNull().WithMessage("نام کاربری اجباری می باشد");
-            RuleFor(p => p.PasswordHash).NotNull().WithMessage("رمز عبور اجباری می باشد")
-                                        .MinimumLength(6).WithMessage("رمز عبور باید حداقل 6 کاراکتر باشد");
-            RuleFor(p => p.PhoneNumber).NotNull().WithMessage("تلفن همراه اجباری می باشد");
-            RuleFor(p => p.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).WithMessage("آدرس ایمیل غیر مجاز می باشد");
-            RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueUserNameAsync(p)).WithMessage("نام کاربری تکراری می باشد");
+            RuleFor(p => p.Id).NotNull();
+            RuleFor(p => p.Name).NotNull();
+            RuleFor(p => p.Family).NotNull();
+            RuleFor(p => p.UserName).NotNull();
+            RuleFor(p => p.PasswordHash).NotNull().MinimumLength(6);
+            RuleFor(p => p.PhoneNumber).NotNull();
+            RuleFor(p => p.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible);
+            RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueUserNameAsync(p));
 
-            RuleFor(p => p).NotEmpty().MustAsync((p, cancellation) => IsUniquePhoneNumberAsync(p)).WithMessage("تلغن همراه تکراری می باشد");
+            RuleFor(p => p).NotEmpty().MustAsync((p, cancellation) => IsUniquePhoneNumberAsync(p));
 
-            RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueEmailAsync(p)).WithMessage("پست الکترونیک تکراری می باشد");
+            RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueEmailAsync(p));
 
-            RuleFor(p => p).Must(IsUniqueNationalCodeAsync).WithMessage("کد ملی غیر مجاز می باشد");
+            RuleFor(p => p).Must(IsUniqueNationalCodeAsync);
 
         }
         private async Task<bool> IsUniqueUserNameAsync(Entities.User request)

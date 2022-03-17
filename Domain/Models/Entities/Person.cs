@@ -10,6 +10,7 @@ namespace Domain.Models.Entities
     public class Person : AuditDeleteEntity<long>
     {
         public long UserId { get; set; }
+        public byte Gender { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
         public DateTime? BirthDate { get; set; }

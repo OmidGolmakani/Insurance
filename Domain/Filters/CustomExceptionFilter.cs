@@ -29,7 +29,8 @@ namespace Domain.Filters
             }
             else if (context.Exception.GetType() == typeof(FluentValidation.ValidationException))
             {
-                exception = new MyException(0, "خطای ناشناخته");
+                exception = new MyException(400, context.Exception.Message);
+
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Configs.AutoMapper.Global;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Extensions.DependencyRegistration
 {
@@ -8,7 +9,9 @@ namespace Domain.Extensions.DependencyRegistration
         {
             var Config = new AutoMapper.MapperConfiguration(cfg =>
             {
-                //cfg.AddProfile(new UserProfile());
+                cfg.AddProfile(new UserProfile());
+                cfg.AddProfile(new InsuranceTitleProfile());
+
             });
             var mapper = Config.CreateMapper();
             services.AddSingleton(mapper);

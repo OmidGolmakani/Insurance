@@ -19,7 +19,7 @@ namespace Domain.Data.Seeding
                 CreatedDate = DateTime.Now,
                 IsDeleted = false,
                 LanguageName = "Persian",
-                CreatedBy = Helpers.ConstVariables.SystemUserName,
+                CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
                 Direction = (byte)Models.Enums.Language.Direction.RightToLeft
             });
             Result.Add(new Models.Entities.Language()
@@ -28,7 +28,7 @@ namespace Domain.Data.Seeding
                 CreatedDate = DateTime.Now,
                 IsDeleted = false,
                 LanguageName = "English",
-                CreatedBy = Helpers.ConstVariables.SystemUserName,
+                CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
                 Direction = (byte)Models.Enums.Language.Direction.LeftToRight
             });
             return Result;

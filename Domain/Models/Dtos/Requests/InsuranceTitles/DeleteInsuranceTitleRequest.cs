@@ -1,5 +1,4 @@
-﻿using Domain.Models.Dtos.Fundamentals.Requests;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Dtos.Requests.InsuranceTitles
 {
-    public class GetInsuranceTitle : GetRequest<int>
+    public class DeleteInsuranceTitleRequest : Models.Dtos.Fundamentals.Requests.DeleteRequest<int>
     {
 
     }

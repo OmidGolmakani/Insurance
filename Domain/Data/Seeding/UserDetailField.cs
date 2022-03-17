@@ -16,7 +16,7 @@ namespace Domain.Data.Seeding
             {
                 Id = 1,
                 Active = true,
-                CreatedBy = Helpers.ConstVariables.SystemUserName,
+                CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
                 CreatedDate = DateTime.Now,
                 DisplayName = "تلفن ثابت",
                 IsDefault = true,

@@ -7,7 +7,7 @@ using Domain.Messages;
 using Domain.Models.Dtos.Fundamentals.Response;
 using Domain.Models.Dtos.Requests.Users;
 using Domain.Models.Dtos.Responses.Users;
-using Domain.Models.Validations;
+using Domain.Models.Validations.User;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -31,12 +31,11 @@ namespace Domain.Services.Data.Global
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
-
         public async Task<UserResponse> Add(AddUserRequest request)
         {
             var entity = _mapper.Map<Domain.Models.Entities.User>(request);
             entity.PasswordHash = request.Password;
-            entity.PhoneNumberConfirmed = true;
+            entity.PhoneNumberConfirmed = true; 
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
             _userRepository.Add(entity);
@@ -62,9 +61,9 @@ namespace Domain.Services.Data.Global
             await Task.Delay(0);
         }
 
-        public async Task<int> CountAsync(GetUsersRequest request)
+        public async Task<int> CountAsync(GetUsersRequest request, bool includeDeleted = false)
         {
-            return await _userRepository.Count(request);
+            return await _userRepository.CountAsync(request);
         }
 
         public async Task Delete(DeleteUserRequest request)
@@ -85,10 +84,20 @@ namespace Domain.Services.Data.Global
             return _mapper.Map<UserResponse>(await _userRepository.GetById(request));
         }
 
-        public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
+        public Task<UserResponse> GetAsync(GetUserRequest request, bool includeDeleted = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request, bool includeDeleted = false)
         {
             var items = _mapper.Map<List<UserResponse>>((await _userRepository.Get(request)));
             return new ListResponse<UserResponse>() { Items = items, Total = items.Count() };
+        }
+
+        public Task<IList<string>> GetUserRolesAsync(GetUserRequest request, bool includeDeleted = false)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<IList<string>> GetUserRolesAsync(GetUserRequest request)

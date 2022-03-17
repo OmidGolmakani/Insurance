@@ -2,7 +2,7 @@
 using System.Globalization;
 using Domain.Extensions.Other;
 
-namespace Domain.Helpers
+namespace Domain.Helpers.Globals
 {
     public static class PersionDate
     {

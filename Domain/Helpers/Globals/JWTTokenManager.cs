@@ -14,7 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace ZarvanOrder.Helpers
+namespace Domain.Helpers.Globals
 {
     public class JWTTokenManager
     {

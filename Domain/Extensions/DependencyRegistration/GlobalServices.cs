@@ -11,9 +11,16 @@ using System.Data.SqlClient;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    public static class Services
+    public static class GlobalServices
     {
-        public static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration,Type Startup)
+        /// <summary>
+        /// Registration of public services
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <param name="Startup"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddGlobalServises(this IServiceCollection services, IConfiguration configuration,Type Startup)
         {
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>
@@ -26,7 +33,7 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddScoped<Func<SqlConnection>>((provider) => () => provider.GetService<SqlConnection>());
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserService, UserService>();
+
             return services;
         }
     }

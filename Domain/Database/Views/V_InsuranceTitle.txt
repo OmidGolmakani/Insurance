@@ -1,0 +1,6 @@
+﻿CREATE OR ALTER VIEW [dbo].[V_InsuranceTitle] 
+AS
+SELECT        Child.Id, Child.Code, Child.[level], Child.Name, Child.Description, Child.Active, Child.IsDeleted, Child.DeletedDate, Child.DeletedBy, Child.CreatedDate, Child.CreatedBy, Child.LastModified, Child.LastModifiedBy, 
+                         Child.LanguageId, Child.ParentId, Parent.Code AS ParentCode, Parent.Name AS ParentName
+FROM            dbo.InsuranceTitle AS Child LEFT OUTER JOIN
+                         dbo.InsuranceTitle AS Parent ON Child.ParentId = Parent.Id

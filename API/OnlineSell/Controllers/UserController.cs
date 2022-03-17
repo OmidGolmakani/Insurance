@@ -1,4 +1,5 @@
 ﻿using Domain.Controllers;
+using Domain.Helpers.ConstVariables;
 using Domain.Interfaces.Globals.Controllers;
 using Domain.Interfaces.Globals.DataServices;
 using Domain.Models.Dtos.Requests.Users;
@@ -18,21 +19,21 @@ namespace OnlineSellAPI.Controllers
         {
             this._userService = userService;
         }
-        [HttpPost("BachDelete")]
+        [HttpPost(HttpNames.BatchUpdate)]
         public async Task<IActionResult> BachDelete([FromForm] IList<DeleteUserRequest> request)
         {
             await _userService.BatchDelete(request);
             return Ok();
 
         }
-        [HttpDelete("Delete")]
+        [HttpDelete(HttpNames.Delete)]
         public async Task<IActionResult> Delete([FromForm] DeleteUserRequest request)
         {
             await _userService.Delete(request);
             return Ok();
         }
-        [HttpGet("Get")]
-        public async Task<IActionResult> Get([FromQuery] GetUserRequest request)
+        [HttpGet(HttpNames.Get)]
+        public async Task<IActionResult> Get([FromQuery] GetUserRequest request, bool includeDeleted = false)
         {
             return Ok(await _userService.GetAsync(request));
         }
@@ -47,21 +48,21 @@ namespace OnlineSellAPI.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpGet("Gets")]
-        public async Task<IActionResult> Gets([FromQuery] GetUsersRequest request)
+        [HttpGet(HttpNames.Gets)]
+        public async Task<IActionResult> Gets([FromQuery] GetUsersRequest request, bool includeDeleted = false)
         {
             return Ok(await _userService.GetsAsync(request));
         }
         [AllowAnonymous]
-        [HttpPost("Post")]
+        [HttpPost(HttpNames.Add)]
         public async Task<IActionResult> Post([FromForm] AddUserRequest request)
         {
             var result = await _userService.Add(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
 
         }
-        [Microsoft.AspNetCore.Cors.EnableCors("ZarvanOrder")]
-        [HttpPut("Put")]
+        [Microsoft.AspNetCore.Cors.EnableCors(Globals.CorsName)]
+        [HttpPut(HttpNames.Update)]
         public async Task<IActionResult> Put([FromForm] EditUserRequest request)
         {
             var result = await _userService.Update(request);

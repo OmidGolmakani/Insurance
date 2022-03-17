@@ -1,5 +1,5 @@
 ﻿using Domain.CustomException;
-using Domain.Helpers;
+using Domain.Helpers.Globals;
 using System;
 using System.Collections.Generic;
 using System.Linq;

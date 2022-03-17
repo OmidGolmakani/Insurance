@@ -20,6 +20,6 @@ namespace Domain.Interfaces.Fundamentals.Repository
         void UpdateBatch(IEnumerable<TEntity> entities);
         Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false);
         Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false);
-        Task<int> Count(TGetsRequest request, bool includeDeleted = false);
+        Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false);
     }
 }

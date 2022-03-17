@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Dtos.Requests.InsuranceTitles
 {
-    public class GetInsuranceTitles : GetsRequest
+    public class GetInsuranceTitlesRequest : GetsRequest
     {
         public decimal? Code { get; set; }
         public int? ParentId { get; set; }

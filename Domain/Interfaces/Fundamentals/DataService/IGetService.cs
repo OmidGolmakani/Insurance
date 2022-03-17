@@ -7,8 +7,8 @@ namespace Domain.Interfaces.Fundamentals.DataService
                                                                        where TGetsRequest : class
                                                                        where TResponse : class
     {
-        Task<TResponse> GetAsync(TGetRequest request);
-        Task<ListResponse<TResponse>> GetsAsync(TGetsRequest request);
-        Task<int> CountAsync(TGetsRequest request);
+        Task<TResponse> GetAsync(TGetRequest request, bool includeDeleted = false);
+        Task<ListResponse<TResponse>> GetsAsync(TGetsRequest request, bool includeDeleted = false);
+        Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false);
     }
 }

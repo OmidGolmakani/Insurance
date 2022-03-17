@@ -14,6 +14,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Extensions.Other;
+using System.Reflection;
+
 namespace Domain.Repositories.Fundamentals
 {
     public class Repository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse> : IRepository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse>
@@ -52,6 +54,7 @@ namespace Domain.Repositories.Fundamentals
         }
         public virtual TEntity Delete(TEntity entity)
         {
+            entity = DbSet.Find(entity.Id);
             entity.IsDeleted = true;
             entity.DeletedDate = DateTime.Now;
             return DbSet.Update(entity).Entity;
@@ -64,22 +67,19 @@ namespace Domain.Repositories.Fundamentals
 
         public virtual TEntity Update(TEntity entity)
         {
+            entity = DbSet.Find(entity.Id);
             entity.LastModified = DateTime.Now;
             return DbSet.Update(entity).Entity;
         }
 
         public virtual void UpdateBatch(IEnumerable<TEntity> entities)
         {
+            entities = DbSet.Where(e => entities.Select(e => e.Id).Contains(e.Id));
             foreach (var entity in entities)
             {
                 entity.LastModified = DateTime.Now;
             }
             DbSet.UpdateRange(entities);
-        }
-
-        public virtual long Count(Expression<Func<TEntity, bool>> expression)
-        {
-            return DbSet.Where(expression).AsNoTracking().Count();
         }
 
         public virtual void DeleteBatch(IEnumerable<TEntity> entities)
@@ -91,13 +91,13 @@ namespace Domain.Repositories.Fundamentals
             }
             DbSet.RemoveRange(entities);
         }
-        private string GetColumns<TRequest>(TRequest request, bool includeDeleted = false)
+        private string GetColumns(Type entity)
         {
-            return request.GetType().GetProperties().ToList().Select(p => p.Name).ToList().ListToString(",");
+            return entity.GetProperties().ToList().Select(p => p.Name).ToList().ListToString(",");
         }
         private string Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
         {
-            string q = GetCount == false ? $"SELECT {GetColumns(request, includeDeleted)} FROM {typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM {typeof(TEntity).Name}";
+            string q = GetCount == false ? $"SELECT {GetColumns(typeof(TResponse))} FROM V_{typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM V_{typeof(TEntity).Name}";
             var Propertes = request.GetType().GetProperties();
             string where = "";
             if (request != null)
@@ -106,48 +106,77 @@ namespace Domain.Repositories.Fundamentals
                 {
                     var parameter = new SQLParameterRequest();
                     parameter.Name = property.Name;
-                    switch (Type.GetTypeCode(property.PropertyType))
+                    var propertyType = Type.GetTypeCode(property.PropertyType);
+                    if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        propertyType = Type.GetTypeCode(property.PropertyType.GetGenericArguments()[0]);
+                    }
+                    switch (propertyType)
                     {
                         case TypeCode.String:
-                            if (string.IsNullOrEmpty(property.GetValue(request).ToString()) == false)
+                            if (string.IsNullOrEmpty(property.GetValue(request)?.ToString() ?? "") == false)
                             {
                                 parameter.Condition = "LIKE";
-                                parameter.value = $"%{property.GetValue(request).ToString()}%";
-                                parameter.Seprator = "AND";
+                                parameter.value = $"%{property.GetValue(request)}%";
                             }
                             break;
                         case TypeCode.Byte:
                         case TypeCode.Int16:
                         case TypeCode.Int32:
+                            parameter.Condition = "=";
+                            decimal _outDec = 0;
+                            if (decimal.TryParse(property.GetValue(request)?.ToString(), out _outDec))
+                            {
+                                parameter.value = property.GetValue(request)?.ToString() ?? "";
+                            }
+                            break;
                         case TypeCode.Int64:
                         case TypeCode.Double:
                         case TypeCode.Decimal:
                             parameter.Condition = "=";
-                            parameter.value = property.GetValue(request).ToString();
-                            parameter.Seprator = "AND";
+                            long _outInt = 0;
+                            if (long.TryParse(property.GetValue(request)?.ToString(), out _outInt))
+                            {
+                                parameter.value = property.GetValue(request)?.ToString() ?? "";
+                            }
                             break;
                         case TypeCode.Boolean:
                             parameter.Condition = "=";
-                            parameter.value = property.GetValue(request).ToString();
-                            parameter.Seprator = "AND";
+                            bool _outBool = false;
+                            if (bool.TryParse(property.GetValue(request)?.ToString(), out _outBool))
+                            {
+                                parameter.value = property.GetValue(request)?.ToString() ?? "";
+                            }
                             break;
                         case TypeCode.DateTime:
+                            parameter.Condition = "=";
+                            DateTime _outDate = DateTime.Now;
+                            if (DateTime.TryParse("", out _outDate))
+                            {
+                                parameter.value = property.GetValue(request)?.ToString() ?? "";
+                            }
                             break;
                         default:
                             parameter = null;
                             break;
                     }
-                    where = where.Trim().Length == 0 && parameter != null ? where = "WHERE" : where = where + "";
-                    if (parameter != null && property == Propertes.LastOrDefault()) parameter.Seprator = "";
-                    where = where.Trim().Length != 0 && parameter != null ? where = $" {parameter.Name} {parameter.value} {parameter.Seprator}" : where = where + "";
+                    if (parameter.value != null && parameter.value.ToString() != "")
+                    {
+                        where += $"{property.Name} {parameter.Condition} {parameter.value}";
+                    }
+                    if (property.GetType() != Propertes.LastOrDefault().GetType())
+                    {
+                        parameter.Seprator = " AND ";
+                        where += parameter.Seprator + " ";
+                    }
                 }
             }
-            return q + where;
+            return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
         }
 
         public virtual Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
         {
-            return DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {GetColumns(request, includeDeleted)} FROM {typeof(TEntity).Name} WHERE {nameof(request.Id)}={request.Id}");
+            return DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {GetColumns(typeof(TResponse))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
         }
 
         public virtual Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false)
@@ -155,7 +184,7 @@ namespace Domain.Repositories.Fundamentals
             return DbConnection.QueryAsync<TResponse>(Query(request, includeDeleted));
         }
 
-        public Task<int> Count(TGetsRequest request, bool includeDeleted = false)
+        public virtual Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false)
         {
             return DbConnection.ExecuteScalarAsync<int>(Query(request, includeDeleted));
         }

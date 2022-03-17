@@ -12,6 +12,8 @@ namespace Domain.Extensions.DependencyRegistration
         {
             services.AddScoped(typeof(IRepository<,,,,>), typeof(Repository<,,,,>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IInsuranceTitleRepository, InsuranceTitleRepository>();
+
 
             return services;
         }

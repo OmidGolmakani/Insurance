@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Helpers
+namespace Domain.Helpers.Globals
 {
     internal static class Enumerated
     {

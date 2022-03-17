@@ -9,6 +9,7 @@ namespace Domain.Models.Entities
         public Role()
         {
         }
+        public string DisplayName { get; set; }
         public ICollection<RolePermission> RolePermissions { get; set; }
     }
 }
