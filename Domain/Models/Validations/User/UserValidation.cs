@@ -16,8 +16,6 @@ namespace Domain.Models.Validations.User
             this._userService = userService;
             _mapper = mapper;
             RuleFor(p => p.Id).NotNull();
-            RuleFor(p => p.Name).NotNull();
-            RuleFor(p => p.Family).NotNull();
             RuleFor(p => p.UserName).NotNull();
             RuleFor(p => p.PasswordHash).NotNull().MinimumLength(6);
             RuleFor(p => p.PhoneNumber).NotNull();

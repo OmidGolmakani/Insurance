@@ -18,8 +18,6 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.DeletedBy).HasMaxLength(120);
             builder.Property(p => p.LanguageId).IsRequired();
 
-            builder.Property(p => p.Name).HasMaxLength(60);
-            builder.Property(p => p.Family).HasMaxLength(60);
             builder.Property(p => p.UserName).HasMaxLength(100);
             builder.Property(p => p.NormalizedUserName).HasMaxLength(100);
             builder.Property(p => p.PasswordHash).HasMaxLength(200);

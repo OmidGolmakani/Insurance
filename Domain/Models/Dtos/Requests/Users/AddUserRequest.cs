@@ -6,10 +6,6 @@ namespace Domain.Models.Dtos.Requests.Users
     {
         public long? ParentId { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Family { get; set; }
-        [Required]
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }

@@ -16,8 +16,6 @@ namespace Domain.Models.Entities
         public User()
         {
         }
-        public string Name { get; set; }
-        public string Family { get; set; }
         public override string UserName { get => base.UserName; set => base.UserName = value; }
         public override string NormalizedUserName { get => base.NormalizedUserName; set => base.NormalizedUserName = value; }
         public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }
