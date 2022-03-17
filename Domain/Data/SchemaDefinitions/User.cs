@@ -38,6 +38,11 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.ReasonDeactivation).HasMaxLength(11);
             builder.Property(p => p.PersonType).IsRequired();
             builder.Property(p => p.Block).HasDefaultValueSql("0");
+            builder.Property(p => p.ParentId);
+            builder.HasOne(p => p.ParentUser).
+                  WithMany(p => p.ChildUsers).
+                  HasForeignKey(p => p.ParentId).
+                  OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(p => p.Language)
                    .WithMany(p => p.User)

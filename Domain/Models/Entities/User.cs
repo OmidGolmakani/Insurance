@@ -39,7 +39,10 @@ namespace Domain.Models.Entities
         public DateTime? DeletedDate { get; set; }
         public string DeletedBy { get; set; }
         public int LanguageId { get; set; }
+        public long? ParentId { get; set; }
         public Language Language { get; set; }
+        public User ParentUser { get; set; }
+        public ICollection<User> ChildUsers { get; set; }
         public ICollection<Company> Companies { get; set; }
         public ICollection<Person> People { get; set; }
         public ICollection<UserDetail> UserDetails { get; set; }
