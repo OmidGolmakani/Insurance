@@ -4,6 +4,8 @@ using Domain.Helpers.ConstVariables;
 using Domain.Interfaces.Globals.Controllers;
 using Domain.Interfaces.Globals.DataServices;
 using Domain.Models.Dtos.Requests.InsuranceTitles;
+using Domain.Models.Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,13 +38,13 @@ namespace OnlineSellAPI.Controllers
         [HttpGet(HttpNames.Get)]
         public async Task<IActionResult> Get([FromQuery] GetInsuranceTitleRequest request, bool includeDeleted = false)
         {
-            return Ok(await _InsuranceTitleService.GetAsync(request, includeDeleted));
+            return Ok(await _InsuranceTitleService.GetById(request, includeDeleted));
         }
 
         [HttpGet(HttpNames.Gets)]
         public async Task<IActionResult> Gets([FromQuery] GetInsuranceTitlesRequest request, bool includeDeleted = false)
         {
-            return Ok(await _InsuranceTitleService.GetsAsync(request, includeDeleted));
+            return Ok(await _InsuranceTitleService.Get(request, includeDeleted));
         }
         [AllowAnonymous]
         [HttpPost(HttpNames.Add)]

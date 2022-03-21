@@ -35,7 +35,7 @@ namespace Domain.Services.Data.Global
         {
             var entity = _mapper.Map<Domain.Models.Entities.User>(request);
             entity.PasswordHash = request.Password;
-            entity.PhoneNumberConfirmed = true; 
+            entity.PhoneNumberConfirmed = true;
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
             _userRepository.Add(entity);
@@ -79,12 +79,12 @@ namespace Domain.Services.Data.Global
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<UserResponse> GetAsync(GetUserRequest request)
+        public async Task<UserResponse> GetById(GetUserRequest request, bool IncludeDeleted = false)
         {
-            return _mapper.Map<UserResponse>(await _userRepository.GetById(request));
+            return _mapper.Map<UserResponse>(await _userRepository.GetById(request,IncludeDeleted));
         }
 
-        public Task<UserResponse> GetAsync(GetUserRequest request, bool includeDeleted = false)
+        public Task<ListResponse<UserResponse>> Get(GetUsersRequest request, bool includeDeleted = false)
         {
             throw new NotImplementedException();
         }

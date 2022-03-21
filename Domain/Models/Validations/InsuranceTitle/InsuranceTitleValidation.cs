@@ -1,13 +1,10 @@
-﻿using Domain.Interfaces.Globals.DataServices;
-using Domain.Models.Validations.Fundamentals;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Models.Validations.InsuranceTitle
 {
-    public class InsuranceTitleValidation : Validation<int, Models.Entities.InsuranceTitle>
+    public class InsuranceTitleValidation : Fundamentals.Validation<int, Models.Entities.InsuranceTitle>
     {
-
-        public InsuranceTitleValidation(IInsuranceTitleService insuranceTitleService)
+        public InsuranceTitleValidation()
         {
             RuleFor(p => p.Name).NotNull();
         }

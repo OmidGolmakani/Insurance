@@ -35,7 +35,7 @@ namespace OnlineSellAPI.Controllers
         [HttpGet(HttpNames.Get)]
         public async Task<IActionResult> Get([FromQuery] GetUserRequest request, bool includeDeleted = false)
         {
-            return Ok(await _userService.GetAsync(request));
+            return Ok(await _userService.GetById(request, includeDeleted));
         }
         [HttpPost("GetEmailVerification")]
         public Task GetEmailVerification(GetUserRequest request)
@@ -51,7 +51,7 @@ namespace OnlineSellAPI.Controllers
         [HttpGet(HttpNames.Gets)]
         public async Task<IActionResult> Gets([FromQuery] GetUsersRequest request, bool includeDeleted = false)
         {
-            return Ok(await _userService.GetsAsync(request));
+            return Ok(await _userService.Get(request, includeDeleted));
         }
         [AllowAnonymous]
         [HttpPost(HttpNames.Add)]

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Domain.Interfaces.Globals.DataServices;
+using Domain.Models.Validations.Fundamentals;
 using FluentValidation;
 using System.Threading.Tasks;
 
 namespace Domain.Models.Validations.User
 {
-    public class UserValidation : AbstractValidator<Entities.User>
+    public class UserValidation : Validation<long, Entities.User>
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;

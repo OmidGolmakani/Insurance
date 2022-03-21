@@ -14,8 +14,8 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Order).IsRequired();
             builder.Property(p => p.TypeId).IsRequired();
             builder.Property(p => p.DisplayName).HasMaxLength(100).IsRequired();
-            builder.Property(p => p.Active).HasDefaultValueSql("1");
-            builder.Property(p => p.IsDefault).HasDefaultValueSql("0");
+            builder.Property(p => p.Active).IsRequired().HasDefaultValue(true);
+            builder.Property(p => p.IsDefault).HasDefaultValue(false);
             builder.HasIndex(p => new { p.UserId, p.Order, p.IsDeleted }).IsUnique();
             base.Configure(builder);
         }

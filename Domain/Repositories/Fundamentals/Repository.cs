@@ -171,7 +171,14 @@ namespace Domain.Repositories.Fundamentals
                     }
                 }
             }
-            return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
+            if (where.Trim().Length == 0)
+            {
+                return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)}";
+            }
+            else
+            {
+                return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
+            }
         }
 
         public virtual Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)

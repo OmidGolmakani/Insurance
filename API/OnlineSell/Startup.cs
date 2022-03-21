@@ -43,17 +43,18 @@ namespace OnlineSellAPI
             });
             services.AddSwagger(_env);
             services.MyIdentity();
+            services.AddValidations();
+            services.AddDataServises();
             services.AddAutoMapperConfig();
             services.AddRepositores();
             services.AddGlobalServises(_configuration, typeof(Startup));
-            services.AddDataServises();
             services.AddControllers();
             if (_env.IsDevelopment() == false)
             {
                 services.AddMvc(config =>
                 {
-                    config.Filters.Add(new CustomExceptionFilter());
-                    config.Filters.Add(new CustomAuthorizationFilter());
+                    //config.Filters.Add(new CustomExceptionFilter());
+                    //config.Filters.Add(new CustomAuthorizationFilter());
                 }).AddFluentValidation();
             }
             else

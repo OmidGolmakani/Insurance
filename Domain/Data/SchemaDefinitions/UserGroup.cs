@@ -12,6 +12,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Name).IsRequired().HasMaxLength(150);
             builder.Property(p => p.Description).HasMaxLength(500);
             builder.Property(p => p.UserId).IsRequired();
+            builder.Property(p => p.Active).IsRequired().HasDefaultValue(true);
             builder.HasIndex(p => new { p.UserId, p.Name });
             builder.HasOne(p => p.User).
                 WithMany(p => p.UserGroups).
