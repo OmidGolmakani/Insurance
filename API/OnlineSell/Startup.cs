@@ -1,5 +1,6 @@
 using Domain.Extensions.DependencyRegistration;
 using Domain.Extensions.DependencyRegistration.Repositories;
+using Domain.Filters;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -49,8 +50,8 @@ namespace OnlineSellAPI
             {
                 services.AddMvc(config =>
                 {
-                    //config.Filters.Add(new CustomExceptionFilter());
-                    //config.Filters.Add(new CustomAuthorizationFilter());
+                    config.Filters.Add(new CustomExceptionFilter());
+                    config.Filters.Add(new CustomAuthorizationFilter());
                 }).AddFluentValidation();
             }
             else
