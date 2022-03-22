@@ -11,6 +11,7 @@ namespace Domain.Models.Dtos.Requests.Users
         [Required]
         public string Password { get; set; }
         [DefaultValue(false)]
+        [Required]
         public bool isPersistent { get; set; }
     }
 }

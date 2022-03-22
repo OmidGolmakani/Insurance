@@ -8,6 +8,7 @@ using Domain.Models.Entities;
 using Domain.Repositories.Fundamentals;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,12 +28,14 @@ namespace Domain.Repositories
                               IMapper mapper,
                               UserManager<User> user,
                               UserManager<User> userManager,
-                              SignInManager<User> signInManager) : base(dbFactory, mapper)
+                              SignInManager<User> signInManager,
+                              IConfiguration configuration) : base(dbFactory, mapper)
         {
             this._mapper = mapper;
             this._user = user;
             this._userManager = userManager;
             this._signInManager = signInManager;
+            Helpers.Globals.JWTTokenManager.configuration = configuration;
         }
         public override User Add(User entity)
         {
@@ -69,15 +72,22 @@ namespace Domain.Repositories
         {
             var user = await _userManager.FindByNameAsync(requst.UserName);
             var signIn = await this._signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, true);
-            List<string> userRoles = (List<string>)await _user.GetRolesAsync(user);
-            var token = Helpers.Globals.JWTTokenManager.GenerateToken(user, userRoles);
-            return new SigninResponse()
+            if (signIn.Succeeded)
             {
-                Id = user.Id,
-                SignIn = signIn,
-                Token = token,
-                IsAdmin = userRoles.Any(u => u == Helpers.ConstVariables.Globals.AdministratorRoleName)
-            };
+                List<string> userRoles = (List<string>)await _user.GetRolesAsync(user);
+                var token = Helpers.Globals.JWTTokenManager.GenerateToken(user, userRoles);
+                return new SigninResponse()
+                {
+                    Id = user.Id,
+                    SignIn = signIn,
+                    Token = token,
+                    IsAdmin = userRoles.Any(u => u == Helpers.ConstVariables.Globals.AdministratorRoleName)
+                };
+            }
+            else
+            {
+                return new SigninResponse();
+            }
         }
 
         public async Task SignoutAsync()
