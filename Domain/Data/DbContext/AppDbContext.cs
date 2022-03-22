@@ -44,6 +44,7 @@ namespace Domain.Data.DbContext
             #region Seeding
             modelBuilder.Entity<Language>().HasData(new Seeding.Language().GetSeeding());
             modelBuilder.Entity<User>().HasData(new Seeding.User().GetSeeding());
+            modelBuilder.Entity<Role>().HasData(new Seeding.Role().GetSeeding());
 
             #endregion Seeding
 
