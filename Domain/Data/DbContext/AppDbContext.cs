@@ -43,6 +43,8 @@ namespace Domain.Data.DbContext
 
             #region Seeding
             modelBuilder.Entity<Language>().HasData(new Seeding.Language().GetSeeding());
+            modelBuilder.Entity<User>().HasData(new Seeding.User().GetSeeding());
+
             #endregion Seeding
 
             base.OnModelCreating(modelBuilder);
@@ -55,7 +57,7 @@ namespace Domain.Data.DbContext
         public DbSet<InsurancePoint> InsurancePoints { get; set; }
         public DbSet<InsurancePointParameter> InsurancePointParameters { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<UserDetail>  UserDetails { get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<UserDetailField> UserDetailFields { get; set; }
         public DbSet<UserDetailLookupField> UserDetailLookups { get; set; }
         public DbSet<Person> People { get; set; }

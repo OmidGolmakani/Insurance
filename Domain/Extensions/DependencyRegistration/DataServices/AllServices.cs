@@ -1,12 +1,11 @@
-﻿using Domain.Interfaces.Fundamentals.DataService;
-using Domain.Interfaces.Globals.DataServices;
+﻿using Domain.Extensions.DependencyRegistration.DataServices;
+using Domain.Interfaces.Fundamentals.DataService;
 using Domain.Services.Data.Fundamentals;
-using Domain.Services.Data.Global;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    public static class DataServices
+    public static partial class AllServices
     {
         /// <summary>
         /// Registration of data services
@@ -16,9 +15,8 @@ namespace Domain.Extensions.DependencyRegistration
         public static IServiceCollection AddDataServises(this IServiceCollection services)
         {
             services.AddScoped(typeof(IService<,,,,,,,>), typeof(Service<,,,,,,,>));
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IInsuranceTitleService, InsuaranceTitleService>();
-
+            services.AddInsuranceTitleServices();
+            services.AddUserServices();
             return services;
         }
     }

@@ -4,6 +4,7 @@ using Domain.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322075916_CreateDefaultAdminUser")]
+    partial class CreateDefaultAdminUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,7 +363,7 @@ namespace Domain.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2022, 3, 22, 13, 4, 2, 629, DateTimeKind.Local).AddTicks(4888),
+                            CreatedDate = new DateTime(2022, 3, 22, 12, 29, 16, 347, DateTimeKind.Local).AddTicks(7845),
                             Direction = (byte)2,
                             IsDeleted = false,
                             LanguageId = 0,
@@ -371,7 +373,7 @@ namespace Domain.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2022, 3, 22, 13, 4, 2, 629, DateTimeKind.Local).AddTicks(4926),
+                            CreatedDate = new DateTime(2022, 3, 22, 12, 29, 16, 347, DateTimeKind.Local).AddTicks(7881),
                             Direction = (byte)1,
                             IsDeleted = false,
                             LanguageId = 0,
@@ -677,6 +679,7 @@ namespace Domain.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NationalId")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -747,12 +750,13 @@ namespace Domain.Migrations
                             Block = false,
                             ConcurrencyStamp = "69e99f0a-aae2-456a-a3d7-360ddbcf85c0",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2022, 3, 22, 13, 4, 2, 629, DateTimeKind.Local).AddTicks(5019),
+                            CreatedDate = new DateTime(2022, 3, 22, 12, 29, 16, 347, DateTimeKind.Local).AddTicks(8013),
                             EmailConfirmed = false,
                             HasImage = false,
                             IsDeleted = false,
                             LanguageId = 1,
                             LockoutEnabled = false,
+                            NationalId = "0",
                             NormalizedUserName = "ADMIN",
                             PasswordHash = "09111111111",
                             PersonType = (byte)1,

@@ -22,7 +22,7 @@ namespace Domain.Extensions.DependencyRegistration
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddUserStore<UserStores>()
-            .AddRoles<Domain.Models.Entities.Role>()
+            .AddRoles<Role>()
             .AddDefaultTokenProviders();
             return services;
         }

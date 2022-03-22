@@ -49,7 +49,7 @@ namespace Domain.Helpers.Globals
             SecurityToken token = tokenHandler.CreateToken(TokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-        public static TokenResponse GenerateToken(UserResponse user, List<string> rolesName)
+        public static TokenResponse GenerateToken(Models.Entities.User user, List<string> rolesName)
         {
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();

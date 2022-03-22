@@ -4,7 +4,7 @@ using Domain.Models.Dtos.Responses.Users;
 using Domain.Models.Entities;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces.Globals.Repositores
+namespace Domain.Interfaces.Globals.Repositories
 {
     public interface IUserRepository : IRepository<long, User, GetUserRequest, GetUsersRequest, UserResponse>
     {

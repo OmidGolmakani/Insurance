@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Domain.Models.Dtos.Requests.InsuranceTitles;
 using Domain.Models.Dtos.Responses.InsuranceTitles;
 
-namespace Domain.Interfaces.Globals.Repositores
+namespace Domain.Interfaces.Globals.Repositories
 {
     public interface IInsuranceTitleRepository : IRepository<int, InsuranceTitle, GetInsuranceTitleRequest, GetInsuranceTitlesRequest, InsuranceTitleResponse>
     {

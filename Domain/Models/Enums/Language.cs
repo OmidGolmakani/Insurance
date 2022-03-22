@@ -16,5 +16,13 @@ namespace Domain.Models.Enums
             [Display(Name = "راست به چپ")]
             RightToLeft = 2,
         }
+        public enum Lanuage : byte
+        {
+            [Display(Name = "fa-IR")]
+            Persian = 1,
+            [Display(Name = "en-US")]
+            English = 2
+
+        }
     }
 }

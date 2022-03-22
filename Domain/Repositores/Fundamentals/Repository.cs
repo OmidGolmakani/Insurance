@@ -14,7 +14,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Extensions.Other;
-using System.Reflection;
 
 namespace Domain.Repositories.Fundamentals
 {

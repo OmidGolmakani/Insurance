@@ -16,9 +16,16 @@ namespace Domain.Services.Data.Global
                                                   InsuranceTitleResponse,
                                                   AddInsuranceTitleRequest,
                                                   EditInsuranceTitleRequest,
-                                                  DeleteInsuranceTitleRequest>, IInsuranceTitleService
+                                                  DeleteInsuranceTitleRequest>, 
+        IInsuranceTitleService
     {
-        public InsuaranceTitleService(IRepository<int, InsuranceTitle, GetInsuranceTitleRequest, GetInsuranceTitlesRequest, InsuranceTitleResponse> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<InsuranceTitle> validator) : base(repository, mapper, unitOfWork, validator)
+        public InsuaranceTitleService(IRepository<int,
+                                                  InsuranceTitle,
+                                                  GetInsuranceTitleRequest,
+                                                  GetInsuranceTitlesRequest,
+                                                  InsuranceTitleResponse> repository,
+            IMapper mapper, IUnitOfWork unitOfWork, IValidator<InsuranceTitle> validator) :
+            base(repository, mapper, unitOfWork, validator)
         {
         }
     }

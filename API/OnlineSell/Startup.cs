@@ -1,18 +1,13 @@
+using Domain.Extensions.DependencyRegistration;
+using Domain.Extensions.DependencyRegistration.Repositories;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Domain.Extensions.DependencyRegistration;
-using Domain.Filters;
-using FluentValidation.AspNetCore;
-using System.Collections.Generic;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using System.Resources;
-using System.Reflection;
+
 
 namespace OnlineSellAPI
 {
@@ -46,7 +41,7 @@ namespace OnlineSellAPI
             services.AddValidations();
             services.AddDataServises();
             services.AddAutoMapperConfig();
-            services.AddRepositores();
+            services.AddRepositories();
             services.AddGlobalServises(_configuration, typeof(Startup));
             services.AddControllers();
             if (_env.IsDevelopment() == false)
