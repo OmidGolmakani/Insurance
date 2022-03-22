@@ -10,7 +10,7 @@ namespace Domain.Extensions.DependencyRegistration.AppSettings
 {
     public static class Authentication
     {
-        public static IServiceCollection BindSettings(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection BindAuthenticationSettings(this IServiceCollection services, IConfiguration configuration)
         {
             var config = configuration.GetSection("Authentication");
             services.Configure<Models.Dtos.Responses.Authentications.AuthenticationResponse>(config);

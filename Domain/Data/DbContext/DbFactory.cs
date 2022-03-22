@@ -24,7 +24,7 @@ namespace Domain.Data.DbContext
             }
         }
         public DbFactory(Func<AppDbContext> dbContextFactory,
-                        Func<SqlConnection> dbConnectionFactory)
+                         Func<SqlConnection> dbConnectionFactory)
         {
             _instanceFunc = dbContextFactory;
             _SqlinstanceFunc = dbConnectionFactory;

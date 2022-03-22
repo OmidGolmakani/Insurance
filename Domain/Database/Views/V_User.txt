@@ -1,0 +1,13 @@
+﻿SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE OR ALTER VIEW [dbo].[V_User]
+AS
+SELECT        Id, UserName, NormalizedUserName, PasswordHash, PhoneNumber, Email, NormalizedEmail, SecurityStamp, ConcurrencyStamp, NationalId, HasImage, ReasonDeactivation, CreatedDate, CreatedBy, LastModified, 
+                         LastModifiedBy, IsDeleted, DeletedDate, DeletedBy, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, LanguageId, Block, PersonType, ParentId
+FROM            dbo.AspNetUsers
+GO
+

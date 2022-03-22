@@ -90,13 +90,18 @@ namespace Domain.Repositories.Fundamentals
             }
             DbSet.RemoveRange(entities);
         }
-        private string GetColumns(Type entity)
+        private async Task<string> GetColumns(Type entity)
         {
-            return entity.GetProperties().ToList().Select(p => p.Name).ToList().ListToString(",");
+            Task task1Open =  OpenConnectionAsync();
+            task1Open.Wait();
+            var result = await DbConnection.QueryAsync<string>($"SELECT name FROM sys.all_columns WHERE object_id=OBJECT_ID('V_{entity.Name}')");
+            Task taskClose = CloseConnectionAsync();
+            taskClose.Wait();
+            return result.ToList().ListToString(",");
         }
-        private string Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
+        private async Task<string> Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
         {
-            string q = GetCount == false ? $"SELECT {GetColumns(typeof(TResponse))} FROM V_{typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM V_{typeof(TEntity).Name}";
+            string q = GetCount == false ? $"SELECT {await GetColumns(typeof(TEntity))} FROM {typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM {typeof(TEntity).Name}";
             var Propertes = request.GetType().GetProperties();
             string where = "";
             if (request != null)
@@ -180,19 +185,27 @@ namespace Domain.Repositories.Fundamentals
             }
         }
 
-        public virtual Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
+        public virtual async Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
         {
-            return DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {GetColumns(typeof(TResponse))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
+            return await DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
         }
 
-        public virtual Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false)
+        public async virtual Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false)
         {
-            return DbConnection.QueryAsync<TResponse>(Query(request, includeDeleted));
+            return await DbConnection.QueryAsync<TResponse>(await Query(request, includeDeleted));
         }
 
-        public virtual Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false)
+        public async virtual Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false)
         {
-            return DbConnection.ExecuteScalarAsync<int>(Query(request, includeDeleted));
+            return await DbConnection.ExecuteScalarAsync<int>(await Query(request, includeDeleted));
+        }
+        private async Task CloseConnectionAsync()
+        {
+            if (DbConnection.State != System.Data.ConnectionState.Closed) await DbConnection.CloseAsync();
+        }
+        private async Task OpenConnectionAsync()
+        {
+            if (DbConnection.State != System.Data.ConnectionState.Open) await DbConnection.OpenAsync();
         }
     }
 }

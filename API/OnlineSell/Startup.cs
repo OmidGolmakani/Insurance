@@ -40,6 +40,7 @@ namespace OnlineSellAPI
             services.MyIdentity();
             services.AddValidations();
             services.AddDataServises();
+            services.BindSettings(_configuration);
             services.AddAutoMapperConfig();
             services.AddRepositories();
             services.AddGlobalServises(_configuration, typeof(Startup));
