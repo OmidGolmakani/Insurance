@@ -6,8 +6,11 @@ GO
 
 CREATE OR ALTER VIEW [dbo].[V_User]
 AS
-SELECT        Id, UserName, NormalizedUserName, PasswordHash, PhoneNumber, Email, NormalizedEmail, SecurityStamp, ConcurrencyStamp, NationalId, HasImage, ReasonDeactivation, CreatedDate, CreatedBy, LastModified, 
-                         LastModifiedBy, IsDeleted, DeletedDate, DeletedBy, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, LanguageId, Block, PersonType, ParentId
-FROM            dbo.AspNetUsers
-GO
+SELECT        dbo.AspNetUsers.Id, dbo.AspNetUsers.UserName, dbo.AspNetUsers.NormalizedUserName, dbo.AspNetUsers.PhoneNumber, dbo.AspNetUsers.Email, dbo.AspNetUsers.NormalizedEmail, dbo.AspNetUsers.NationalId, 
+                         dbo.AspNetUsers.HasImage, dbo.AspNetUsers.ReasonDeactivation, dbo.AspNetUsers.CreatedDate, dbo.AspNetUsers.CreatedBy, dbo.AspNetUsers.LastModified, dbo.AspNetUsers.LastModifiedBy, dbo.AspNetUsers.IsDeleted, 
+                         dbo.AspNetUsers.DeletedDate, dbo.AspNetUsers.DeletedBy, dbo.AspNetUsers.EmailConfirmed, dbo.AspNetUsers.PhoneNumberConfirmed, dbo.AspNetUsers.TwoFactorEnabled, dbo.AspNetUsers.LockoutEnd, 
+                         dbo.AspNetUsers.LockoutEnabled, dbo.AspNetUsers.AccessFailedCount, dbo.AspNetUsers.LanguageId, dbo.AspNetUsers.Block, dbo.AspNetUsers.PersonType, dbo.AspNetUsers.ParentId, dbo.Language.AcceptLanguage
+FROM            dbo.AspNetUsers INNER JOIN
+                         dbo.Language ON dbo.AspNetUsers.LanguageId = dbo.Language.Id
+
 

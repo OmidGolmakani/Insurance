@@ -37,6 +37,7 @@ namespace OnlineSellAPI
                     .WithOrigins("https://localhost:5001")
                     );
             });
+            services.AddHttpContextAccessor();
             services.AddSwagger(_env);
             services.MyIdentity();
             services.AddValidations();

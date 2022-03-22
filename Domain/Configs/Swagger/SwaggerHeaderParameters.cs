@@ -21,28 +21,51 @@ namespace Domain.Configs.Swagger
             if (operation.Parameters == null)
                 operation.Parameters = new List<OpenApiParameter>();
 
-            if (_env.IsDevelopment() == false && IsMethodWithHttpGetAttribute(context))
+            if (_env.IsDevelopment() == false && CorsOrginReqired(context))
             {
-                operation.Parameters.Add(new OpenApiParameter
-                {
-                    Name = "Access-Control-Allow-Origin",
-                    In = ParameterLocation.Header,
-                    Required = true
-                });
                 operation.Parameters.Add(new OpenApiParameter
                 {
                     Name = "Access-Control-Allow-Credentials",
                     In = ParameterLocation.Header,
                     Required = true
                 });
+                operation.Parameters.Add(new OpenApiParameter
+                {
+                    Name = "Access-Control-Allow-Origin",
+                    In = ParameterLocation.Header,
+                    Required = true
+                });
+            }
+            if (AcceptLanguage(context))
+            {
+                operation.Parameters.Add(new OpenApiParameter
+                {
+                    Name = "Accept-Language",
+                    In = ParameterLocation.Header,
+                    Required = true
+                });
             }
         }
-        private bool IsMethodWithHttpGetAttribute(OperationFilterContext context)
+        private bool CorsOrginReqired(OperationFilterContext context)
         {
             return context.MethodInfo.CustomAttributes.Any(attribute =>
             attribute.AttributeType == typeof(HttpDeleteAttribute) ||
             attribute.AttributeType == typeof(HttpPutAttribute) ||
             attribute.AttributeType == typeof(HttpPatchAttribute));
+        }
+        private bool AcceptLanguage(OperationFilterContext context)
+        {
+            foreach (var ConstructorArguments in context.MethodInfo.CustomAttributes.ToList().Select(p => p.ConstructorArguments).ToList())
+            {
+                foreach (var value in ConstructorArguments)
+                {
+                    if (Helpers.ConstVariables.HttpNames.AcceptLanguageMethods.FirstOrDefault(x => x == value.Value.ToString()) != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

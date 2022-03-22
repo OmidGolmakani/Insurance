@@ -29,7 +29,8 @@ namespace Domain.Repositories
                               UserManager<User> user,
                               UserManager<User> userManager,
                               SignInManager<User> signInManager,
-                              IConfiguration configuration) : base(dbFactory, mapper)
+                              IConfiguration configuration,
+                              Microsoft.AspNetCore.Http.IHttpContextAccessor httpContext) : base(dbFactory, mapper,httpContext)
         {
             this._mapper = mapper;
             this._user = user;

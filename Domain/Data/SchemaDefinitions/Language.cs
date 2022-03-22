@@ -16,6 +16,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.ToTable("Language");
             builder.Property(p => p.LanguageName).IsRequired().HasMaxLength(150);
             builder.Property(p => p.Direction).IsRequired();
+            builder.Property(p => p.AcceptLanguage).HasMaxLength(20).IsRequired();
             base.Configure(builder);
             builder.Ignore(p => p.LanguageId);
             builder.Ignore(p => p.Language);

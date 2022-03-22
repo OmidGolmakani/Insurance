@@ -20,7 +20,8 @@ namespace Domain.Data.Seeding
                 IsDeleted = false,
                 LanguageName = "Persian",
                 CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
-                Direction = (byte)Models.Enums.Language.Direction.RightToLeft
+                Direction = (byte)Models.Enums.Language.Direction.RightToLeft,
+                AcceptLanguage ="fa-IR"
             });
             Result.Add(new Models.Entities.Language()
             {
@@ -29,7 +30,8 @@ namespace Domain.Data.Seeding
                 IsDeleted = false,
                 LanguageName = "English",
                 CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
-                Direction = (byte)Models.Enums.Language.Direction.LeftToRight
+                Direction = (byte)Models.Enums.Language.Direction.LeftToRight,
+                AcceptLanguage = "en-US"
             });
             return Result;
         }

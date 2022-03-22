@@ -14,6 +14,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Extensions.Other;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 namespace Domain.Repositories.Fundamentals
 {
@@ -26,8 +28,10 @@ namespace Domain.Repositories.Fundamentals
     {
         private readonly DbFactory _dbFactory;
         private readonly IMapper _mapper;
+        private readonly HttpContext _HttpContext;
         private SqlConnection _dbConnection;
         private DbSet<TEntity> _dbSet;
+
         protected DbSet<TEntity> DbSet
         {
             get => _dbSet ?? (_dbSet = _dbFactory.DbContext.Set<TEntity>());
@@ -37,10 +41,12 @@ namespace Domain.Repositories.Fundamentals
             get => _dbConnection ?? (_dbConnection = _dbFactory.DbConnection);
         }
         public Repository(DbFactory dbFactory,
-                          IMapper mapper)
+                          IMapper mapper,
+                          Microsoft.AspNetCore.Http.IHttpContextAccessor httpContext)
         {
             _dbFactory = dbFactory;
             this._mapper = mapper;
+            this._HttpContext = httpContext.HttpContext;
         }
         public Repository(DbFactory dbFactory)
         {
@@ -92,7 +98,7 @@ namespace Domain.Repositories.Fundamentals
         }
         private async Task<string> GetColumns(Type entity)
         {
-            Task task1Open =  OpenConnectionAsync();
+            Task task1Open = OpenConnectionAsync();
             task1Open.Wait();
             var result = await DbConnection.QueryAsync<string>($"SELECT name FROM sys.all_columns WHERE object_id=OBJECT_ID('V_{entity.Name}')");
             Task taskClose = CloseConnectionAsync();
@@ -101,7 +107,7 @@ namespace Domain.Repositories.Fundamentals
         }
         private async Task<string> Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
         {
-            string q = GetCount == false ? $"SELECT {await GetColumns(typeof(TEntity))} FROM {typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM {typeof(TEntity).Name}";
+            string q = GetCount == false ? $"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM V_{typeof(TEntity).Name}";
             var Propertes = request.GetType().GetProperties();
             string where = "";
             if (request != null)
@@ -175,19 +181,30 @@ namespace Domain.Repositories.Fundamentals
                     }
                 }
             }
+            var Accept_Language = _HttpContext?.Request?.Headers?.FirstOrDefault(h => h.Key == HeaderNames.AcceptLanguage).Value ?? "";
+
             if (where.Trim().Length == 0)
             {
-                return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)}";
+                return $"{q} WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)}";
             }
             else
             {
-                return $"{q} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
+                return $"{q} WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
             }
         }
 
         public virtual async Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
         {
-            return await DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
+            var Accept_Language = _HttpContext?.Request?.Headers?.FirstOrDefault(h => h.Key == HeaderNames.AcceptLanguage).Value ?? "";
+            if (Accept_Language.Count() == 0)
+            {
+                return await DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
+
+            }
+            else
+            {
+                return await DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)}  AND AcceptLanguage='{Accept_Language.FirstOrDefault()}' AND {nameof(request.Id)}={request.Id}");
+            }
         }
 
         public async virtual Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false)
