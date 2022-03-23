@@ -9,6 +9,7 @@ namespace Domain.Models.Entities
         public string LanguageName { get; set; }
         public byte Direction { get; set; }
         public string AcceptLanguage { get; set; }
+        public bool Active { get; set; }
         [NotMapped]
         public override int LanguageId { get => base.LanguageId; set => base.LanguageId = value; }
         public ICollection<User> User { get; set; }

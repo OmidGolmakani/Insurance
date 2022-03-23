@@ -21,7 +21,8 @@ namespace Domain.Data.Seeding
                 LanguageName = "Persian",
                 CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
                 Direction = (byte)Models.Enums.Language.Direction.RightToLeft,
-                AcceptLanguage ="fa-IR"
+                AcceptLanguage ="fa-IR",
+                Active = true,
             });
             Result.Add(new Models.Entities.Language()
             {
@@ -31,7 +32,8 @@ namespace Domain.Data.Seeding
                 LanguageName = "English",
                 CreatedBy = Helpers.ConstVariables.Globals.SystemUserName,
                 Direction = (byte)Models.Enums.Language.Direction.LeftToRight,
-                AcceptLanguage = "en-US"
+                AcceptLanguage = "en-US",
+                Active = true,
             });
             return Result;
         }
