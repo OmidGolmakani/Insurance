@@ -14,7 +14,7 @@ namespace Domain.Models.Validations.Fundamentals
     {
         public Validation()
         {
-            RuleFor(p => p.LanguageId).NotNull().NotEmpty();
+            
         }
     }
 }

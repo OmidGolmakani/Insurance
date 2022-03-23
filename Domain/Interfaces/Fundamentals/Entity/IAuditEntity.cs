@@ -9,6 +9,5 @@ namespace Domain.Interfaces.Fundamentals.Entity
         string CreatedBy { get; set; }
         DateTime? LastModified { get; set; }
         string LastModifiedBy { get; set; }
-        int LanguageId { get; set; }
     }
 }

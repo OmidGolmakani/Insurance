@@ -20,8 +20,6 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p => p.Active).IsRequired().HasDefaultValueSql("1");
 
             base.Configure(builder);
-            builder.Ignore(p => p.LanguageId);
-            builder.Ignore(p => p.Language);
 
         }
     }

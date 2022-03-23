@@ -18,7 +18,6 @@ namespace Domain.Data.Seeding
                 DisplayName = "تلفن ثابت",
                 IsDefault = true,
                 IsDeleted = false,
-                LanguageId = 1,
                 Name = "Tel",
                 Order = 1,
                 TypeId = (byte)Models.Enums.UserDetailField.DataType.Number

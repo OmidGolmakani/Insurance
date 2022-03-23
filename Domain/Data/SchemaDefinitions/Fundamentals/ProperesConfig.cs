@@ -16,12 +16,6 @@ namespace Domain.Data.SchemaDefinitions.Fundamentals
             builder.Property(p => p.CreatedDate);
             builder.Property(p => p.CreatedBy).HasMaxLength(120);
             builder.Property(p => p.DeletedDate);
-            builder.Property(p => p.DeletedBy).HasMaxLength(120);
-            builder.Property(p => p.LanguageId).IsRequired();
-            builder.HasOne(p => p.Language)
-                                 .WithMany()
-                                 .OnDelete(DeleteBehavior.NoAction)
-                                 .HasForeignKey(p => p.LanguageId);
-        }
+            builder.Property(p => p.DeletedBy).HasMaxLength(120);        }
     }
 }
