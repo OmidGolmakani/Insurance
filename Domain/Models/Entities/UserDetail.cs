@@ -13,5 +13,7 @@ namespace Domain.Models.Entities
         public string Value { get; set; }
         public UserDetailField UserDetailField { get; set; }
         public ICollection<UserDetailField> UserDetailFields { get; set; }
+        public ICollection<UserDetailLanguageData> UserDetailLanguageDatas { get; set; }
+
     }
 }

@@ -15,5 +15,6 @@ namespace Domain.Models.Entities
         public string Family { get; set; }
         public DateTime? BirthDate { get; set; }
         public User User { get; set; }
+        public ICollection<PersonLanguageData> PersonLanguageDatas { get; set; }
     }
 }

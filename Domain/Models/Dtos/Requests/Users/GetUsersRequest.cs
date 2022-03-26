@@ -1,6 +1,8 @@
-﻿namespace Domain.Models.Dtos.Requests.Users
+﻿using Domain.Interfaces.Fundamentals.Request;
+
+namespace Domain.Models.Dtos.Requests.Users
 {
-    public class GetUsersRequest : Fundamentals.Requests.PageRequest
+    public class GetUsersRequest : Fundamentals.Requests.GetsRequest
     {
         public string UserName { get; set; }
         public string Name { get; set; }

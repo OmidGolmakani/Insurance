@@ -11,6 +11,8 @@ namespace Domain.Extensions.DependencyRegistration
             {
                 cfg.AddProfile(new UserProfile());
                 cfg.AddProfile(new InsuranceTitleProfile());
+                cfg.AddProfile(new InsuranceTitleLanguageDataProfile());
+
 
             });
             var mapper = Config.CreateMapper();

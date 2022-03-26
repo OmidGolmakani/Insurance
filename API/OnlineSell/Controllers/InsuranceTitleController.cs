@@ -1,14 +1,12 @@
 ﻿using Domain.Controllers;
-using Domain.Helpers;
 using Domain.Helpers.ConstVariables;
 using Domain.Interfaces.Globals.Controllers;
 using Domain.Interfaces.Globals.DataServices;
 using Domain.Models.Dtos.Requests.InsuranceTitles;
-using Domain.Models.Entities;
-using FluentValidation;
+using Domain.Models.Dtos.Responses.InsuranceTitleLanguageDatas;
+using Domain.Models.Dtos.Responses.InsuranceTitles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -44,7 +42,8 @@ namespace OnlineSellAPI.Controllers
         [HttpGet(HttpNames.Gets)]
         public async Task<IActionResult> Gets([FromQuery] GetInsuranceTitlesRequest request, bool includeDeleted = false)
         {
-            return Ok(await _InsuranceTitleService.Get(request, includeDeleted));
+            var result = await _InsuranceTitleService.Get<int, InsuranceTitleResponse, InsuranceTitleLanguageDataResponse>(request);
+            return Ok(result);
         }
         [AllowAnonymous]
         [HttpPost(HttpNames.Add)]

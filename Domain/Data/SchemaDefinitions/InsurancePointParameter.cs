@@ -20,6 +20,7 @@ namespace Domain.Data.SchemaDefinitions
                     WithMany(p => p.InsurancePoints).
                     HasForeignKey(p => p.InsuranceId).
                     OnDelete(DeleteBehavior.NoAction);
+
             builder.HasOne(p => p.PointParameter).
                     WithMany(p => p.InsurancePointParameters).
                     HasForeignKey(p => p.PointParameterId).

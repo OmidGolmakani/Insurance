@@ -12,6 +12,7 @@ namespace Domain.Models.Entities
         public string Name { get; set; }
         public bool IsRequired { get; set; }
         public bool Active { get; set; }
+        public ICollection<PointParameterLanguageData> PointParameterLanguageDatas { get; set; }
         public ICollection<InsurancePointParameter> InsurancePointParameters { get; set; }
     }
 }

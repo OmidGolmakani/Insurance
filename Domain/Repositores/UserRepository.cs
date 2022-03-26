@@ -6,6 +6,7 @@ using Domain.Models.Dtos.Requests.Users;
 using Domain.Models.Dtos.Responses.Users;
 using Domain.Models.Entities;
 using Domain.Repositories.Fundamentals;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,7 @@ namespace Domain.Repositories
                               UserManager<User> userManager,
                               SignInManager<User> signInManager,
                               IConfiguration configuration,
-                              Microsoft.AspNetCore.Http.IHttpContextAccessor httpContext) : base(dbFactory, mapper,httpContext)
+                              IHttpContextAccessor httpContext) : base(dbFactory, mapper,httpContext)
         {
             this._mapper = mapper;
             this._user = user;

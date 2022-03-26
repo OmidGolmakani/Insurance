@@ -42,7 +42,7 @@ namespace Domain.Configs.Swagger
                 {
                     Name = "Accept-Language",
                     In = ParameterLocation.Header,
-                    Required = true
+                    Required = false
                 });
             }
         }

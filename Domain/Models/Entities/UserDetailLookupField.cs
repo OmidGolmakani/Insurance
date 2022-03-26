@@ -13,5 +13,6 @@ namespace Domain.Models.Entities
         public bool IsDefault { get; set; }
         public UserDetailField Field { get; set; }
         public ICollection<UserDetailField> UserDetailFields { get; set; }
+        public ICollection<UserDetailLookupFieldLanguageData> UserDetailLookupFieldLanguageDatas { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.Models.Dtos.Fundamentals.Requests
 {
-    public class PageRequest : GetsRequest
+    public class PageRequest 
     {
         int _pageSize = 0;
         public virtual int PageSize

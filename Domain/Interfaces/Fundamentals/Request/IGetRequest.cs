@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces.Fundamentals.Dto
+namespace Domain.Interfaces.Fundamentals.Request
 {
-    public interface IGetDto<TIdentity> where TIdentity : struct
+    public interface IGetRequest<TIdentity> where TIdentity : struct
     {
         public TIdentity Id { get; set; }
     }

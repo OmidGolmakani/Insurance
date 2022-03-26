@@ -1,0 +1,7 @@
+﻿CREATE OR ALTER VIEW [dbo].[V_InsuranceTitleLanguageData]
+AS
+SELECT        dbo.InsuranceTitleLanguageData.Id, dbo.InsuranceTitleLanguageData.KeyId, dbo.InsuranceTitleLanguageData.LanguageId, dbo.Language.AcceptLanguage, dbo.InsuranceTitleLanguageData.Name, 
+                         dbo.InsuranceTitleLanguageData.Description, dbo.InsuranceTitleLanguageData.IsDeleted, dbo.InsuranceTitleLanguageData.DeletedDate, dbo.InsuranceTitleLanguageData.DeletedBy, 
+                         dbo.InsuranceTitleLanguageData.CreatedDate, dbo.InsuranceTitleLanguageData.CreatedBy, dbo.InsuranceTitleLanguageData.LastModified, dbo.InsuranceTitleLanguageData.LastModifiedBy
+FROM            dbo.InsuranceTitleLanguageData INNER JOIN
+                         dbo.Language ON dbo.InsuranceTitleLanguageData.LanguageId = dbo.Language.Id

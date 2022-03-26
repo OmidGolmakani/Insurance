@@ -13,6 +13,6 @@ namespace Domain.Models.Entities
         public int PointParameterId { get; set; }
         public InsuranceCompany InsuranceCompany { get; set; }
         public PointParameter PointParameter { get; set; }
-        public ICollection<InsurancePoint> insurancePoints { get; set; }
+        public ICollection<InsurancePoint> InsurancePoints { get; set; }
     }
 }

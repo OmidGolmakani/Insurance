@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using Dapper;
 using Domain.Data.DbContext;
-using Domain.Interfaces.Fundamentals.Dto;
+using Domain.Extensions.Other;
 using Domain.Interfaces.Fundamentals.Entity;
 using Domain.Interfaces.Fundamentals.Repository;
+using Domain.Interfaces.Fundamentals.Request;
+using Domain.Interfaces.Fundamentals.Response;
 using Domain.Models.Dtos.Fundamentals.Requests;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,17 +17,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Domain.Extensions.Other;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
 
 namespace Domain.Repositories.Fundamentals
 {
     public class Repository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse> : IRepository<TIdentity, TEntity, TGetRequest, TGetsRequest, TResponse>
         where TIdentity : struct
         where TEntity : class, IAuditEntity<TIdentity>, IDeleteEntity
-        where TGetRequest : class, IGetDto<TIdentity>
-        where TGetsRequest : class
+        where TGetRequest : class, IGetRequest<TIdentity>
+        where TGetsRequest : class, IGetsRequest
         where TResponse : class
     {
         private readonly DbFactory _dbFactory;
@@ -98,16 +99,24 @@ namespace Domain.Repositories.Fundamentals
         }
         private async Task<string> GetColumns(Type entity)
         {
+            return await GetColumns(entity.Name);
+        }
+        private async Task<string> GetColumns(string entity)
+        {
             Task task1Open = OpenConnectionAsync();
             task1Open.Wait();
-            var result = await DbConnection.QueryAsync<string>($"SELECT name FROM sys.all_columns WHERE object_id=OBJECT_ID('V_{entity.Name}')");
+            var result = await DbConnection.QueryAsync<string>($"SELECT name FROM sys.all_columns WHERE object_id=OBJECT_ID('V_{entity}')");
             Task taskClose = CloseConnectionAsync();
             taskClose.Wait();
-            return result.ToList().ListToString(",");
+            return result.ToList().Select(p => $"[{p}]").ToList().ListToString(",");
         }
         private async Task<string> Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
         {
             string q = GetCount == false ? $"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM V_{typeof(TEntity).Name}";
+            return $"{q} {CreateWhereClose(request, includeDeleted)}";
+        }
+        private string CreateWhereClose(TGetsRequest request, bool includeDeleted = false)
+        {
             var Propertes = request.GetType().GetProperties();
             string where = "";
             if (request != null)
@@ -180,16 +189,17 @@ namespace Domain.Repositories.Fundamentals
                         where += parameter.Seprator + " ";
                     }
                 }
+                return where;
             }
             var Accept_Language = _HttpContext?.Request?.Headers?.FirstOrDefault(h => h.Key == HeaderNames.AcceptLanguage).Value ?? "";
 
             if (where.Trim().Length == 0)
             {
-                return $"{q} WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)}";
+                return $"WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)}";
             }
             else
             {
-                return $"{q} WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
+                return $"WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
             }
         }
 
@@ -214,6 +224,39 @@ namespace Domain.Repositories.Fundamentals
         private async Task OpenConnectionAsync()
         {
             if (DbConnection.State != System.Data.ConnectionState.Open) await DbConnection.OpenAsync();
+        }
+
+        public async virtual Task<IEnumerable<TResponseWithLanguage>> Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetsRequest request, bool includeDeleted = false)
+            where TForeignKeyType : struct
+            where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
+            where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>
+        {
+            var sql = await Query(request, includeDeleted, false);
+            string ForeignKey = Models.Constants.Response.LanguageDataForeignKey;
+            return await DbConnection.QueryAsync<TResponseWithLanguage, TLanguageResponse, TResponseWithLanguage>(sql,
+                  (Response, Language) =>
+              {
+                  Response.LanguageDatas.Add(Language);
+                  return Response;
+              }, splitOn: ForeignKey);
+
+        }
+        public async virtual Task<TResponseWithLanguage> GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetRequest request, bool includeDeleted = false)
+           where TForeignKeyType : struct
+           where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
+           where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>
+        {
+            var sql = $"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}";
+            string ForeignKey = "";
+            IEnumerable<TResponseWithLanguage> Result = await DbConnection.QueryAsync<TResponseWithLanguage, TLanguageResponse, TResponseWithLanguage>(sql,
+                   (Response, Language) =>
+                   {
+                       ForeignKey = nameof(Language.KeyId);
+                       Response.LanguageDatas.Add(Language);
+                       return Response;
+                   }, splitOn: ForeignKey);
+            return Result.FirstOrDefault();
+
         }
     }
 }

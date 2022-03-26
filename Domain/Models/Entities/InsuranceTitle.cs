@@ -17,5 +17,7 @@ namespace Domain.Models.Entities
         public bool Active { get; set; }
         public InsuranceTitle Insurance { get; set; }
         public ICollection<InsuranceTitle> Insurances { get; set; }
+        public ICollection<InsuranceTitleLanguageData> InsuranceTitleLanguageDatas { get; set; }
+
     }
 }

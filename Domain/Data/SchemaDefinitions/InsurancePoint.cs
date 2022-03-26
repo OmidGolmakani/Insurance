@@ -19,7 +19,7 @@ namespace Domain.Data.SchemaDefinitions
             builder.Property(p=> p.EndDate).IsRequired();
             builder.Property(p=> p.RangeValue).IsRequired();
             builder.HasOne(p => p.InsurancePointParameter)
-                   .WithMany(p => p.insurancePoints)
+                   .WithMany(p => p.InsurancePoints)
                    .OnDelete(DeleteBehavior.NoAction)
                    .HasForeignKey(p=> p.PointParameterId);
             base.Configure(builder);

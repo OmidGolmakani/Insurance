@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
+using Domain.Interfaces.Fundamentals.Request;
 
 namespace Domain.Services.Data.Fundamentals
 {
@@ -23,8 +24,8 @@ namespace Domain.Services.Data.Fundamentals
         where TAddRequest : class
         where TEditRequest : class
         where TDeleteRequest : class
-        where TGetRequest : class
-        where TGetsRequest : class
+        where TGetRequest : class, IGetRequest<TIdentity>
+        where TGetsRequest : class, IGetsRequest
         where TResponse : class
         where TIdentity : struct
     {
@@ -95,6 +96,8 @@ namespace Domain.Services.Data.Fundamentals
             return await Task.Run(() => response);
         }
 
+
+
         public async virtual Task<TResponse> Update(TEditRequest request)
         {
             var entity = _mapper.Map<TEditRequest, TEntity>(request);
@@ -103,6 +106,18 @@ namespace Domain.Services.Data.Fundamentals
             await _unitOfWork.CommitAsync();
             var response = _mapper.Map<TResponse>(_repository.Update(entity));
             return response;
+        }
+
+        async Task<ListResponse<TResponseWithLanguage>> IService<TIdentity, TEntity, TAddRequest, TEditRequest, TDeleteRequest, TGetRequest, TGetsRequest, TResponse>.Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetsRequest request, bool includeDeleted)
+        {
+            var response = _mapper.Map<IEnumerable<TResponseWithLanguage>>(await _repository.Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(request, includeDeleted));
+            return await Task.Run(() => new ListResponse<TResponseWithLanguage>() { Items = response, Total = response.Count() });
+        }
+
+        async Task<TResponseWithLanguage> IService<TIdentity, TEntity, TAddRequest, TEditRequest, TDeleteRequest, TGetRequest, TGetsRequest, TResponse>.GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetRequest request, bool includeDeleted)
+        {
+            var response = _mapper.Map<TResponseWithLanguage>(await _repository.GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(request, includeDeleted));
+            return await Task.Run(() => response);
         }
     }
 }

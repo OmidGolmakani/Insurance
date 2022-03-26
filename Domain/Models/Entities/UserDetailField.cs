@@ -15,5 +15,7 @@ namespace Domain.Models.Entities
         public User User { get; set; }
         public ICollection<UserDetail> UserDetails  { get; set; }
         public ICollection<UserDetailLookupField> UserDetailLookupFields { get; set; }
+        public ICollection<UserDetailFieldLanguageData> UserDetailFieldLanguageDatas { get; set; }
+
     }
 }

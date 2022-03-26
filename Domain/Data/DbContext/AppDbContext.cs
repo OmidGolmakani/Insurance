@@ -37,8 +37,13 @@ namespace Domain.Data.DbContext
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Person());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Company());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserGroup());
-
-
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.CompanyLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceTitleLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.PersonLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.PointParameterLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetailFieldLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetailLanguageData());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.UserDetailLookupFieldLanguageData());
             #endregion SchemaDefinitions
 
             #region Seeding
@@ -65,7 +70,13 @@ namespace Domain.Data.DbContext
         public DbSet<Person> People { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-
+        public DbSet<CompanyLanguageData> CompanyLanguageDatas { get; set; }
+        public DbSet<InsuranceTitleLanguageData> InsuranceTitleLanguageDatas { get; set; }
+        public DbSet<PersonLanguageData> PersonLanguageDatas { get; set; }
+        public DbSet<PointParameterLanguageData> PointParameterLanguageDatas { get; set; }
+        public DbSet<UserDetailFieldLanguageData> UserDetailFieldLanguageDatas { get; set; }
+        public DbSet<UserDetailLanguageData> UserDetailLanguageDatas { get; set; }
+        public DbSet<UserDetailLookupFieldLanguageData> UserDetailLookupFieldLanguageDatas { get; set; }
 
         #endregion DbSets
 

@@ -10,11 +10,11 @@ namespace Domain.Data.SchemaDefinitions
         {
             builder.ToTable("UserDetailLookupField");
             builder.Property(p => p.FieldId).IsRequired();
-            builder.Property(p => p.Name).HasMaxLength(150);
+            builder.Property(p => p.Name).HasMaxLength(150).IsRequired();
             builder.Property(p => p.Active).IsRequired().HasDefaultValue(true);
             builder.Property(p => p.IsDefault).HasDefaultValue(false);
             builder.Property(p => p.Order).IsRequired();
-            builder.Property(p => p.Value).HasMaxLength(100);
+            builder.Property(p => p.Value).HasMaxLength(100).IsRequired();
             builder.HasOne(p => p.Field).
                 WithMany(p => p.UserDetailLookupFields).
                 HasForeignKey(p => p.FieldId).OnDelete(DeleteBehavior.NoAction);

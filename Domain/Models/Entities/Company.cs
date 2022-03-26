@@ -14,5 +14,6 @@ namespace Domain.Models.Entities
         public string RegisterCode { get; set; }
         public DateTime RegisterDate { get; set; }
         public User User { get; set; }
+        public ICollection<CompanyLanguageData> CompanyLanguageDatas { get; set; }
     }
 }
