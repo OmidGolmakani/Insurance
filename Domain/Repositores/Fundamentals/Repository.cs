@@ -16,6 +16,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Domain.Repositories.Fundamentals
@@ -113,7 +114,7 @@ namespace Domain.Repositories.Fundamentals
         private async Task<string> Query(TGetsRequest request, bool includeDeleted = false, bool GetCount = false)
         {
             string q = GetCount == false ? $"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name}" : $"SELECT COUNT(*) FROM V_{typeof(TEntity).Name}";
-            return $"{q} {CreateWhereClose(request, includeDeleted)}";
+            return $"{q} {CreateWhereClose(request, includeDeleted)} {Pageing(request)}";
         }
         private string CreateWhereClose(TGetsRequest request, bool includeDeleted = false)
         {
@@ -123,86 +124,89 @@ namespace Domain.Repositories.Fundamentals
             {
                 foreach (var property in Propertes)
                 {
-                    var parameter = new SQLParameterRequest();
-                    parameter.Name = property.Name;
-                    var propertyType = Type.GetTypeCode(property.PropertyType);
-                    if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    if (typeof(IPageRequest).GetProperty(property.Name) == null)
                     {
-                        propertyType = Type.GetTypeCode(property.PropertyType.GetGenericArguments()[0]);
-                    }
-                    switch (propertyType)
-                    {
-                        case TypeCode.String:
-                            if (string.IsNullOrEmpty(property.GetValue(request)?.ToString() ?? "") == false)
-                            {
-                                parameter.Condition = "LIKE";
-                                parameter.value = $"%{property.GetValue(request)}%";
-                            }
-                            break;
-                        case TypeCode.Byte:
-                        case TypeCode.Int16:
-                        case TypeCode.Int32:
-                            parameter.Condition = "=";
-                            decimal _outDec = 0;
-                            if (decimal.TryParse(property.GetValue(request)?.ToString(), out _outDec))
-                            {
-                                parameter.value = property.GetValue(request)?.ToString() ?? "";
-                            }
-                            break;
-                        case TypeCode.Int64:
-                        case TypeCode.Double:
-                        case TypeCode.Decimal:
-                            parameter.Condition = "=";
-                            long _outInt = 0;
-                            if (long.TryParse(property.GetValue(request)?.ToString(), out _outInt))
-                            {
-                                parameter.value = property.GetValue(request)?.ToString() ?? "";
-                            }
-                            break;
-                        case TypeCode.Boolean:
-                            parameter.Condition = "=";
-                            bool _outBool = false;
-                            if (bool.TryParse(property.GetValue(request)?.ToString(), out _outBool))
-                            {
-                                parameter.value = property.GetValue(request)?.ToString() ?? "";
-                            }
-                            break;
-                        case TypeCode.DateTime:
-                            parameter.Condition = "=";
-                            DateTime _outDate = DateTime.Now;
-                            if (DateTime.TryParse("", out _outDate))
-                            {
-                                parameter.value = property.GetValue(request)?.ToString() ?? "";
-                            }
-                            break;
-                        default:
-                            parameter = null;
-                            break;
-                    }
-                    if (parameter.value != null && parameter.value.ToString() != "")
-                    {
-                        where += $"{property.Name} {parameter.Condition} {parameter.value}";
-                    }
-                    if (property.GetType() != Propertes.LastOrDefault().GetType())
-                    {
-                        parameter.Seprator = " AND ";
-                        where += parameter.Seprator + " ";
+                        var parameter = new SQLParameterRequest();
+                        parameter.Name = property.Name;
+                        var propertyType = Type.GetTypeCode(property.PropertyType);
+                        if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
+                            propertyType = Type.GetTypeCode(property.PropertyType.GetGenericArguments()[0]);
+                        }
+                        switch (propertyType)
+                        {
+                            case TypeCode.String:
+                                if (string.IsNullOrEmpty(property.GetValue(request)?.ToString() ?? "") == false)
+                                {
+                                    parameter.Condition = "LIKE";
+                                    parameter.value = $"'%{property.GetValue(request)}%'";
+                                }
+                                break;
+                            case TypeCode.Byte:
+                            case TypeCode.Int16:
+                            case TypeCode.Int32:
+                                parameter.Condition = "=";
+                                if (decimal.TryParse(property.GetValue(request)?.ToString(), out _))
+                                {
+                                    parameter.value = property.GetValue(request)?.ToString() ?? "";
+                                }
+                                break;
+                            case TypeCode.Int64:
+                            case TypeCode.Double:
+                            case TypeCode.Decimal:
+                                parameter.Condition = "=";
+                                if (long.TryParse(property.GetValue(request)?.ToString(), out _))
+                                {
+                                    parameter.value = property.GetValue(request)?.ToString() ?? "";
+                                }
+                                break;
+                            case TypeCode.Boolean:
+                                parameter.Condition = "=";
+                                if (bool.TryParse(property.GetValue(request)?.ToString(), out _))
+                                {
+                                    parameter.value = property.GetValue(request)?.ToString() ?? "";
+                                }
+                                break;
+                            case TypeCode.DateTime:
+                                parameter.Condition = "=";
+                                DateTime _outDate = DateTime.Now;
+                                if (DateTime.TryParse("", out _outDate))
+                                {
+                                    parameter.value = property.GetValue(request)?.ToString() ?? "";
+                                }
+                                break;
+                            default:
+                                parameter = null;
+                                break;
+                        }
+                        if (parameter.value != null && parameter.value.ToString() != "")
+                        {
+                            where += $"{property.Name} {parameter.Condition} {parameter.value}";
+                        }
+                        if (property.GetType() != Propertes.LastOrDefault().GetType())
+                        {
+                            parameter.Seprator = " AND ";
+                            where += parameter.Seprator + " ";
+                        }
                     }
                 }
-                return where;
             }
             var Accept_Language = _HttpContext?.Request?.Headers?.FirstOrDefault(h => h.Key == HeaderNames.AcceptLanguage).Value ?? "";
-
+            string AddAcceptLanguage = Accept_Language.Count == 0 ? "" : $"AcceptLanguage= '{Accept_Language.FirstOrDefault()}' AND ";
             if (where.Trim().Length == 0)
             {
-                return $"WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)}";
+                return $"WHERE {AddAcceptLanguage} IsDeleted={Convert.ToByte(includeDeleted)}";
             }
             else
             {
-                return $"WHERE AcceptLanguage ='{Accept_Language.FirstOrDefault()}' AND IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
+                return $"WHERE {AddAcceptLanguage} IsDeleted={Convert.ToByte(includeDeleted)} AND {where}";
             }
         }
-
+        private string Pageing(TGetsRequest request)
+        {
+            if (request.PageSize == 0) request.PageSize = int.MaxValue;
+            return $"{Environment.NewLine}ORDER BY {typeof(TEntity).GetProperties().FirstOrDefault().Name}{Environment.NewLine}OFFSET {request.PageSize * request.PageIndex} ROWS FETCH NEXT {request.PageSize} ROWS ONLY ";
+        }
         public virtual async Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false)
         {
             return await DbConnection.QueryFirstOrDefaultAsync<TResponse>($"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}");
@@ -237,6 +241,7 @@ namespace Domain.Repositories.Fundamentals
                   (Response, Language) =>
               {
                   Response.LanguageDatas.Add(Language);
+
                   return Response;
               }, splitOn: ForeignKey);
 
@@ -257,6 +262,108 @@ namespace Domain.Repositories.Fundamentals
                    }, splitOn: ForeignKey);
             return Result.FirstOrDefault();
 
+        }
+        private bool FindChild<TForeignKeyType, TLanguageResponse>(TGetsRequest request, TLanguageResponse response)
+            where TForeignKeyType : struct
+            where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
+        {
+            if (response == null) return true;
+            if (request == null) return true;
+
+            foreach (var responseProperty in response.GetType().GetProperties())
+            {
+                foreach (var requestProperty in request.GetType().GetProperties())
+                {
+                    object requestValue = null;
+                    object responseValue = null;
+                    TypeCode requestPropertyType = TypeCode.Empty;
+                    TypeCode responsePropertyType = TypeCode.Empty;
+
+
+                    if (FindValue(responseProperty, response, out responseValue, out responsePropertyType) &&
+                        FindValue(requestProperty, request, out requestValue, out requestPropertyType) &&
+                        requestPropertyType == responsePropertyType && requestProperty.Name == responseProperty.Name)
+                    {
+                        switch (requestPropertyType)
+                        {
+                            case TypeCode.String:
+                                return responseValue.ToString().Contains(requestValue.ToString());
+                            case TypeCode.Byte:
+                            case TypeCode.Int16:
+                            case TypeCode.Int32:
+                            case TypeCode.Int64:
+                                return responseValue.ToString().ToLong() == requestValue.ToString().ToLong();
+                            case TypeCode.Double:
+                                return responseValue.ToString().ToDouble() == requestValue.ToString().ToDouble();
+                            case TypeCode.Decimal:
+                                return responseValue.ToString().ToDecimal() == requestValue.ToString().ToDecimal();
+                            case TypeCode.Boolean:
+                                return responseValue.ToString().ToBoolean() == requestValue.ToString().ToBoolean();
+                            case TypeCode.DateTime:
+                                return responseValue.ToString().ToDateTime() == requestValue.ToString().ToDateTime();
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+        private bool FindValue(PropertyInfo property, object obj, out object Propertyvalue, out TypeCode propertyType)
+        {
+            Propertyvalue = "";
+            propertyType = TypeCode.Empty;
+            var propertyValue = property.GetValue(obj);
+            if (propertyValue == null)
+            {
+                propertyValue = null;
+                return false;
+            }
+            propertyType = Type.GetTypeCode(property.PropertyType);
+            if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                propertyType = Type.GetTypeCode(property.PropertyType.GetGenericArguments()[0]);
+            }
+            propertyValue = property.GetValue(obj);
+            switch (propertyType)
+            {
+                case TypeCode.String:
+                    if (propertyValue.ToString().Trim().Length == 0)
+                    {
+                        propertyValue = null;
+                        return false;
+                    }
+                    break;
+                case TypeCode.Byte:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                    if (long.TryParse(propertyValue.ToString(), out _) == false)
+                    {
+                        propertyValue = null;
+                        return false;
+                    }
+                    break;
+                case TypeCode.Double:
+                case TypeCode.Decimal:
+                    if (decimal.TryParse(propertyValue.ToString(), out _) == false)
+                    {
+                        propertyValue = null;
+                        return false;
+                    }
+                    break;
+                case TypeCode.Boolean:
+                    break;
+                case TypeCode.DateTime:
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
     }
 }

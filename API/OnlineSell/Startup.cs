@@ -1,4 +1,5 @@
 using Domain.Extensions.DependencyRegistration;
+using Domain.Extensions.DependencyRegistration.Mapper;
 using Domain.Extensions.DependencyRegistration.Repositories;
 using Domain.Filters;
 using FluentValidation.AspNetCore;
@@ -25,6 +26,7 @@ namespace OnlineSellAPI
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
             services.AddCors(options =>

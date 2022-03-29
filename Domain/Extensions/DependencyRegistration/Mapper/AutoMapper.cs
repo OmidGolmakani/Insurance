@@ -1,7 +1,7 @@
 ﻿using Domain.Configs.AutoMapper.Global;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Extensions.DependencyRegistration
+namespace Domain.Extensions.DependencyRegistration.Mapper
 {
     public static class _AutoMapper
     {

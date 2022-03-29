@@ -1,4 +1,5 @@
-﻿using Domain.Models.Dtos.Fundamentals.Requests;
+﻿using Domain.Interfaces.Fundamentals.Request;
+using Domain.Models.Dtos.Fundamentals.Requests;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -29,7 +29,7 @@ namespace Domain.CustomException
             this.Error.Description = message;
         }
 
-        public MyException(string message, Exception innerException)
+        public MyException(string message, MyException innerException)
             : base(message, innerException)
         {
             this.Error.Code = 0;

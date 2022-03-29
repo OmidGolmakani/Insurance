@@ -6,7 +6,5 @@ namespace  Domain.Models.Dtos.Fundamentals.Requests
     {
         [Required]
         public virtual TIdentity Id { get; set; }
-        [Required]
-        public virtual int LanguageId { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Domain.Filters
             else
             {
 
-                exception = new MyException(context.Exception.Message, context.Exception.InnerException);
+                exception = new MyException(context.Exception.Message, (MyException)context.Exception.InnerException);
             }
 
             if (exception.Error != null && string.IsNullOrEmpty(exception.Error.Description) == false)

@@ -1,8 +1,8 @@
 ﻿CREATE OR ALTER VIEW [dbo].[V_InsuranceTitle]
 SELECT        dbo.InsuranceTitle.Id, dbo.InsuranceTitle.Code, dbo.InsuranceTitle.[level], dbo.InsuranceTitle.Name, dbo.InsuranceTitle.Description, dbo.InsuranceTitle.Active, dbo.InsuranceTitle.IsDeleted, dbo.InsuranceTitle.DeletedDate, 
                          dbo.InsuranceTitle.DeletedBy, dbo.InsuranceTitle.CreatedDate, dbo.InsuranceTitle.CreatedBy, dbo.InsuranceTitle.LastModified, dbo.InsuranceTitle.LastModifiedBy, dbo.InsuranceTitle.ParentId, 
-                         dbo.InsuranceTitleLanguageData.KeyId, dbo.InsuranceTitleLanguageData.LanguageId, dbo.InsuranceTitleLanguageData.Name AS InsuranceTitleLanguageName, 
-                         dbo.InsuranceTitleLanguageData.Description AS InsuranceTitleLanguageDescription, dbo.Language.LanguageName, dbo.Language.AcceptLanguage
+                         dbo.InsuranceTitleLanguageData.KeyId, dbo.InsuranceTitleLanguageData.LanguageId, dbo.InsuranceTitleLanguageData.Name AS OtherLanguageName, 
+                         dbo.InsuranceTitleLanguageData.Description AS OtherLanguageDescription, dbo.Language.LanguageName, dbo.Language.AcceptLanguage, dbo.InsuranceTitleLanguageData.Id AS OtherLanguageId
 FROM            dbo.Language INNER JOIN
                          dbo.InsuranceTitleLanguageData ON dbo.Language.Id = dbo.InsuranceTitleLanguageData.LanguageId RIGHT OUTER JOIN
                          dbo.InsuranceTitle ON dbo.InsuranceTitleLanguageData.KeyId = dbo.InsuranceTitle.Id

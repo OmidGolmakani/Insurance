@@ -42,7 +42,13 @@ namespace Domain.Configs.Swagger
                 {
                     Name = "Accept-Language",
                     In = ParameterLocation.Header,
-                    Required = false
+                    Required = false,
+                    AllowEmptyValue = true,
+                    AllowReserved = true,
+                    Schema = new OpenApiSchema()
+                    {
+                        Nullable = true
+                    }
                 });
             }
         }
