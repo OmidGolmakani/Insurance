@@ -30,12 +30,12 @@ namespace Domain.Interfaces.Fundamentals.DataService
         Task<TResponseWithLanguage> GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetRequest request, bool includeDeleted = false)
          where TForeignKeyType : struct
          where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-         where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>;
+         where TResponseWithLanguage : ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>;
         Task<ListResponse<TResponse>> Get(TGetsRequest request, bool includeDeleted = false);
         Task<ListResponse<TResponseWithLanguage>> Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetsRequest request, bool includeDeleted = false)
             where TForeignKeyType : struct
             where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-            where TResponseWithLanguage : class, IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>;
+            where TResponseWithLanguage : class, ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>;
         Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false);
 
     }

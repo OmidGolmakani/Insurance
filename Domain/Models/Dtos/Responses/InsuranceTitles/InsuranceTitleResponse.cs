@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models.Dtos.Responses.InsuranceTitles
 {
-    public class InsuranceTitleResponse : BaseResponse<int>, IResponseWithLanguageDatas<int,InsuranceTitleLanguageDataResponse>
+    public class InsuranceTitleResponse : BaseResponse<int>, ILisDataLanguageResponse<int,InsuranceTitleLanguageDataResponse>
     {
         public decimal? Code { get; set; }
         public int? ParentId { get; set; }

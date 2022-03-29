@@ -1,14 +1,13 @@
-﻿using Domain.Models.Dtos.Fundamentals.Requests;
-using System;
+﻿using Domain.Interfaces.Fundamentals.Request;
+using Domain.Models.Dtos.Fundamentals.Requests;
+using Domain.Models.Dtos.Requests.InsuranceTitleLanguageDatas;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Models.Dtos.Requests.InsuranceTitles
 {
-    public class EditInsuranceTitleRequest : EditRequest<int>
+    public class EditInsuranceTitleRequest : EditRequest<int>, IListDataLanguageRequest<long, EditInsuranceTitleLanguageDataRequest>
     {
         public decimal? Code { get; set; }
         public int? ParentId { get; set; }
@@ -17,7 +16,9 @@ namespace Domain.Models.Dtos.Requests.InsuranceTitles
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [DefaultValue(true)]
         [Required]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
+        public List<EditInsuranceTitleLanguageDataRequest> LanguageDatas { get; set; }
     }
 }

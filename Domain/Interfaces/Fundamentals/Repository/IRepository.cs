@@ -25,12 +25,12 @@ namespace Domain.Interfaces.Fundamentals.Repository
         Task<TResponseWithLanguage> GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetRequest request, bool includeDeleted = false)
              where TForeignKeyType : struct
              where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-             where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>;
+             where TResponseWithLanguage : ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>;
         Task<IEnumerable<TResponse>> Get(TGetsRequest request, bool includeDeleted = false);
         Task<IEnumerable<TResponseWithLanguage>> Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetsRequest request, bool includeDeleted = false)
              where TForeignKeyType : struct
              where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-             where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>;
+             where TResponseWithLanguage : ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>;
         Task<int> CountAsync(TGetsRequest request, bool includeDeleted = false);
     }
 }

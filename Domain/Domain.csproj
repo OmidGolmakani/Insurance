@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Dtos\Requests\Pages\**" />
+    <EmbeddedResource Remove="Models\Dtos\Requests\Pages\**" />
+    <None Remove="Models\Dtos\Requests\Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
@@ -33,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Dtos\Requests\Pages\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

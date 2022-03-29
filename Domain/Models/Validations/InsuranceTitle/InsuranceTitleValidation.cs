@@ -6,7 +6,10 @@ namespace Domain.Models.Validations.InsuranceTitle
     {
         public InsuranceTitleValidation()
         {
+            LanguageDataValidation languageValidation = new();
             RuleFor(p => p.Name).NotNull();
+            RuleFor(p => p.Description).NotNull();
+            RuleForEach(p => p.InsuranceTitleLanguageDatas).SetValidator(languageValidation);
         }
     }
 }

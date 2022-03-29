@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Fundamentals.Response
 {
-    public interface IResponseWithLanguageDatas<TForeignKeyType, TLanguageData>
+    public interface ILisDataLanguageResponse<TForeignKeyType, TLanguageData>
         where TForeignKeyType : struct
         where TLanguageData : class, ILanguageDataResponse<TForeignKeyType>
     {

@@ -10,6 +10,7 @@ namespace Domain.Extensions.DependencyRegistration
     {
         public static IServiceCollection AddValidations(this IServiceCollection services)
         {
+            services.AddScoped<FluentValidation.IValidator<InsuranceTitleLanguageData>, LanguageDataValidation>();
             services.AddScoped<FluentValidation.IValidator<InsuranceTitle>, InsuranceTitleValidation>();
             services.AddScoped<FluentValidation.IValidator<User>, UserValidation>();
             services.AddScoped<FluentValidation.IValidator<Language>, LanguageValidation>();

@@ -12,8 +12,17 @@ namespace Domain.Configs.AutoMapper.Global
         public InsuranceTitleProfile()
         {
             #region Reuests
-            CreateMap<Models.Dtos.Requests.InsuranceTitles.AddInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
-            CreateMap<Models.Dtos.Requests.InsuranceTitles.EditInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitles.AddInsuranceTitleRequest, Models.Entities.InsuranceTitle>()
+                 .ForMember(dest => dest.InsuranceTitleLanguageDatas, opts => opts.MapFrom(src => src.LanguageDatas));
+
+            CreateMap<Models.Entities.InsuranceTitle,Models.Dtos.Requests.InsuranceTitles.AddInsuranceTitleRequest>();
+
+
+            CreateMap<Models.Dtos.Requests.InsuranceTitles.EditInsuranceTitleRequest, Models.Entities.InsuranceTitle>()
+                 .ForMember(dest => dest.InsuranceTitleLanguageDatas, opts => opts.MapFrom(src => src.LanguageDatas));
+
+            CreateMap<Models.Entities.InsuranceTitle, Models.Dtos.Requests.InsuranceTitles.EditInsuranceTitleRequest>();
+
             CreateMap<Models.Dtos.Requests.InsuranceTitles.DeleteInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
             CreateMap<Models.Dtos.Requests.InsuranceTitles.GetInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
             CreateMap<Models.Dtos.Requests.InsuranceTitles.GetInsuranceTitlesRequest, Models.Entities.InsuranceTitle>().ReverseMap();

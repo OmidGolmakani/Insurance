@@ -47,7 +47,7 @@ namespace OnlineSellAPI.Controllers
         }
         [AllowAnonymous]
         [HttpPost(HttpNames.Add)]
-        public async Task<IActionResult> Post([FromForm] AddInsuranceTitleRequest request)
+        public async Task<IActionResult> Post(AddInsuranceTitleRequest request)
         {
             var result = await _InsuranceTitleService.Add(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
@@ -55,7 +55,7 @@ namespace OnlineSellAPI.Controllers
         }
         [Microsoft.AspNetCore.Cors.EnableCors(Globals.CorsName)]
         [HttpPut(HttpNames.Update)]
-        public async Task<IActionResult> Put([FromForm] EditInsuranceTitleRequest request)
+        public async Task<IActionResult> Put(EditInsuranceTitleRequest request)
         {
             var result = await _InsuranceTitleService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);

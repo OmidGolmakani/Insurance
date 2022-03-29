@@ -8,11 +8,11 @@ namespace Domain.Configs.AutoMapper.Global
         public InsuranceTitleLanguageDataProfile()
         {
             #region Reuests
-            //CreateMap<Models.Dtos.Requests.InsuranceTitles.AddInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
-            //CreateMap<Models.Dtos.Requests.InsuranceTitles.EditInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
-            //CreateMap<Models.Dtos.Requests.InsuranceTitles.DeleteInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
-            //CreateMap<Models.Dtos.Requests.InsuranceTitles.GetInsuranceTitleRequest, Models.Entities.InsuranceTitle>().ReverseMap();
-            //CreateMap<Models.Dtos.Requests.InsuranceTitles.GetInsuranceTitlesRequest, Models.Entities.InsuranceTitle>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitleLanguageDatas.AddInsuranceTitleLanguageDataRequest, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitleLanguageDatas.EditInsuranceTitleLanguageDataRequest, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitleLanguageDatas.DeleteInsuranceTitleLanguageDataRequest, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitleLanguageDatas.GetInsuranceTitleLanguageDataRequest, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();
+            CreateMap<Models.Dtos.Requests.InsuranceTitleLanguageDatas.GetInsuranceTitlesLanguageDataRequest, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();
             #endregion Reuests
             #region Responses
             CreateMap<Models.Dtos.Responses.InsuranceTitleLanguageDatas.InsuranceTitleLanguageDataResponse, Models.Entities.InsuranceTitleLanguageData>().ReverseMap();

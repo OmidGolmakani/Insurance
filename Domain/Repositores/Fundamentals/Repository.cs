@@ -233,7 +233,7 @@ namespace Domain.Repositories.Fundamentals
         public async virtual Task<IEnumerable<TResponseWithLanguage>> Get<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetsRequest request, bool includeDeleted = false)
             where TForeignKeyType : struct
             where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-            where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>
+            where TResponseWithLanguage : ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>
         {
             var sql = await Query(request, includeDeleted, false);
             string ForeignKey = Models.Constants.Response.LanguageDataForeignKey;
@@ -249,7 +249,7 @@ namespace Domain.Repositories.Fundamentals
         public async virtual Task<TResponseWithLanguage> GetById<TForeignKeyType, TResponseWithLanguage, TLanguageResponse>(TGetRequest request, bool includeDeleted = false)
            where TForeignKeyType : struct
            where TLanguageResponse : class, ILanguageDataResponse<TForeignKeyType>
-           where TResponseWithLanguage : IResponseWithLanguageDatas<TForeignKeyType, TLanguageResponse>
+           where TResponseWithLanguage : ILisDataLanguageResponse<TForeignKeyType, TLanguageResponse>
         {
             var sql = $"SELECT {await GetColumns(typeof(TEntity))} FROM V_{typeof(TEntity).Name} WHERE IsDeleted={Convert.ToByte(includeDeleted)} AND {nameof(request.Id)}={request.Id}";
             string ForeignKey = "";
