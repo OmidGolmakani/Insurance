@@ -5,7 +5,6 @@ namespace Domain.Models.Dtos.Requests.InsuranceTitleLanguageDatas
 {
     public class GetInsuranceTitlesLanguageDataRequest : GetsRequest
     {
-        [Required]
         public int KeyId { get; set; }
         public int LanguageId { get; set; }
         public string Name { get; set; }

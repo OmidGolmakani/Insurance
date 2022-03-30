@@ -16,6 +16,7 @@ namespace Domain.Extensions.DependencyRegistration
         {
             services.AddScoped(typeof(IService<,,,,,,,>), typeof(Service<,,,,,,,>));
             services.AddInsuranceTitleServices();
+            services.AddInsuranceTitleLanguageDataServices();
             services.AddUserServices();
             services.AddLanguageServices();
             return services;

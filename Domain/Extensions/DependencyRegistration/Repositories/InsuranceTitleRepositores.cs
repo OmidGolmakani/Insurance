@@ -6,7 +6,7 @@ namespace Domain.Extensions.DependencyRegistration.Repositories
 {
     public static class InsuranceTitleRepositories
     {
-        public static IServiceCollection AddInsuranceTitleRepositoryRepositories(this IServiceCollection services)
+        public static IServiceCollection AddInsuranceTitleRepositories(this IServiceCollection services)
         {
             services.AddScoped<IInsuranceTitleRepository, Domain.Repositories.InsuranceTitleRepository>();
             return services;

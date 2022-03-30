@@ -12,7 +12,11 @@ using Domain.Models.Dtos.Responses.InsuranceTitles;
 
 namespace Domain.Interfaces.Globals.Repositories
 {
-    public interface IInsuranceTitleRepository : IRepository<int, InsuranceTitle, GetInsuranceTitleRequest, GetInsuranceTitlesRequest, InsuranceTitleResponse>
+    public interface IInsuranceTitleRepository : IRepository<int,
+                                                             InsuranceTitle,
+                                                             GetInsuranceTitleRequest,
+                                                             GetInsuranceTitlesRequest,
+                                                             InsuranceTitleResponse>
     {
 
     }

@@ -6,7 +6,7 @@ namespace Domain.Extensions.DependencyRegistration.Repositories
 {
     public static class LanguageRepositories
     {
-        public static IServiceCollection AddLanguageRepositoryRepositories(this IServiceCollection services)
+        public static IServiceCollection AddLanguageRepositories(this IServiceCollection services)
         {
             services.AddScoped<ILanguageRepository, Domain.Repositories.LanguageRepository>();
             return services;
