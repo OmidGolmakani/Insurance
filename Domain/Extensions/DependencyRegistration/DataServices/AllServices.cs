@@ -19,6 +19,8 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddInsuranceTitleLanguageDataServices();
             services.AddUserServices();
             services.AddLanguageServices();
+            services.AddPersonLanguageDataServices();
+            services.AddPersonServices();
             return services;
         }
     }

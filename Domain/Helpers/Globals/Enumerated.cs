@@ -20,7 +20,7 @@ namespace Domain.Helpers.Globals
             }
             return lstResult;
         }
-        private static string GetDisplay<TEnum>(TEnum @enum) where TEnum : Enum
+        internal static string GetDisplay<TEnum>(TEnum @enum) where TEnum : Enum
         {
             if (@enum is not Enum) return string.Empty;
             return @enum?.GetType().

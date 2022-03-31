@@ -14,7 +14,8 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddInsuranceTitleRepositories();
             services.AddInsuranceTitleLanguageDataRepositores();
             services.AddLanguageRepositories();
-
+            services.AddPersonRepositores();
+            services.AddPersonLanguageDataRepositores();
             return services;
         }
     }

@@ -2,9 +2,9 @@
 
 namespace Domain.Models.Validations.InsuranceTitle
 {
-    public class LanguageDataValidation : Fundamentals.Validation<long, Models.Entities.InsuranceTitleLanguageData>
+    public class InsuranceTitleLanguageDataValidation : Fundamentals.Validation<long, Entities.InsuranceTitleLanguageData>
     {
-        public LanguageDataValidation()
+        public InsuranceTitleLanguageDataValidation()
         {
             RuleFor(p => p.LanguageId).NotNull();
             RuleFor(p=> p.Name).NotNull();

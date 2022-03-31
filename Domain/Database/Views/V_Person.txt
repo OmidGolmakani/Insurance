@@ -1,0 +1,9 @@
+﻿CREATE OR ALTER VIEW [dbo].[V_Person]
+AS
+SELECT        dbo.Person.Id, dbo.Person.UserId, dbo.AspNetUsers.UserName, dbo.Person.Name, dbo.Person.Family, dbo.Person.BirthDate, dbo.PersonLanguageData.Name AS OtherLanguageName, 
+                         dbo.PersonLanguageData.Family AS OtherLanguageFamily, dbo.Language.LanguageName, dbo.Language.AcceptLanguage, dbo.PersonLanguageData.Id AS OtherLanguageId, dbo.Person.IsDeleted, dbo.Person.DeletedDate, 
+                         dbo.Person.DeletedBy, dbo.Person.CreatedDate, dbo.Person.CreatedBy, dbo.Person.LastModified, dbo.Person.LastModifiedBy, dbo.Person.Gender
+FROM            dbo.Person INNER JOIN
+                         dbo.AspNetUsers ON dbo.Person.UserId = dbo.AspNetUsers.Id INNER JOIN
+                         dbo.Language ON dbo.AspNetUsers.LanguageId = dbo.Language.Id LEFT OUTER JOIN
+                         dbo.PersonLanguageData ON dbo.Language.Id = dbo.PersonLanguageData.LanguageId AND dbo.Person.Id = dbo.PersonLanguageData.KeyId
