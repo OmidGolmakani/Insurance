@@ -4,10 +4,10 @@ using System;
 
 namespace Domain.Models.Dtos.Requests.PersonLanguageDatas
 {
-    public class GetPeopleLanguageDataRequest : GetsRequest, ILanguageDataRequest<long>
+    public class GetPeopleLanguageDataRequest : GetsRequest, IGetsLanguageDataRequest<long>
     {
-        public long KeyId { get; set; }
-        public int LanguageId { get; set; }
+        public long? KeyId { get; set; }
+        public int? LanguageId { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
     }

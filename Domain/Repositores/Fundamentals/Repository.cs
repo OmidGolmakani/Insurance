@@ -118,7 +118,8 @@ namespace Domain.Repositories.Fundamentals
         }
         private string CreateWhereClose(TGetsRequest request, bool includeDeleted = false)
         {
-            var Propertes = request.GetType().GetProperties();
+            var Propertes = request.GetType().GetProperties().Where(p => typeof(IPageRequest)
+            .GetProperties().Select(p => p.Name).ToList().Contains(p.Name) == false).ToList();
             string where = "";
             if (request != null)
             {
@@ -145,13 +146,13 @@ namespace Domain.Repositories.Fundamentals
                             case TypeCode.Byte:
                             case TypeCode.Int16:
                             case TypeCode.Int32:
+                            case TypeCode.Int64:
                                 parameter.Condition = "=";
                                 if (decimal.TryParse(property.GetValue(request)?.ToString(), out _))
                                 {
                                     parameter.value = property.GetValue(request)?.ToString() ?? "";
                                 }
                                 break;
-                            case TypeCode.Int64:
                             case TypeCode.Double:
                             case TypeCode.Decimal:
                                 parameter.Condition = "=";
@@ -182,14 +183,20 @@ namespace Domain.Repositories.Fundamentals
                         if (parameter.value != null && parameter.value.ToString() != "")
                         {
                             where += $"{property.Name} {parameter.Condition} {parameter.value}";
-                        }
-                        if (property.GetType() != Propertes.LastOrDefault().GetType())
-                        {
-                            parameter.Seprator = " AND ";
-                            where += parameter.Seprator + " ";
+                            if (property.Name != Propertes.LastOrDefault().Name)
+                            {
+                                parameter.Seprator = " AND ";
+                                where = $" {where} {parameter.Seprator}";
+                            }
                         }
                     }
                 }
+            }
+            ///Remove First AND 
+            if (string.IsNullOrEmpty(where) == false && where.LastIndexOf("AND") != -1)
+            {
+                where = where.Trim();
+                where = where.TrimEnd().Substring(0, where.Length - 3);
             }
             var Accept_Language = _HttpContext?.Request?.Headers?.FirstOrDefault(h => h.Key == HeaderNames.AcceptLanguage).Value ?? "";
             string AddAcceptLanguage = Accept_Language.Count == 0 ? "" : $"AcceptLanguage= '{Accept_Language.FirstOrDefault()}' AND ";

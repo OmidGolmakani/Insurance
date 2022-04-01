@@ -1,10 +1,12 @@
 ﻿using Domain.Models.Dtos.Fundamentals.Requests;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Dtos.Requests.People
 {
     public class GetPeopleRequest : GetsRequest
     {
+        [Required]
         public long UserId { get; set; }
         public Models.Enums.Person.Gender Gender { get; set; }
         public string Name { get; set; }

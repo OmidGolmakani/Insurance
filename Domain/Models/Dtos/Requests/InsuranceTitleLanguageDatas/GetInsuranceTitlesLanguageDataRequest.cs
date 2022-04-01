@@ -1,12 +1,13 @@
-﻿using Domain.Models.Dtos.Fundamentals.Requests;
+﻿using Domain.Interfaces.Fundamentals.Request;
+using Domain.Models.Dtos.Fundamentals.Requests;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Dtos.Requests.InsuranceTitleLanguageDatas
 {
-    public class GetInsuranceTitlesLanguageDataRequest : GetsRequest
+    public class GetInsuranceTitlesLanguageDataRequest : GetsRequest, IGetsLanguageDataRequest<long>
     {
-        public int KeyId { get; set; }
-        public int LanguageId { get; set; }
+        public long? KeyId { get; set; }
+        public int? LanguageId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }
