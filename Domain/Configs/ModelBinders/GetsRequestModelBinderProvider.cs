@@ -1,4 +1,4 @@
-﻿using Domain.ModelBinders;
+﻿using Domain.Models.Binders;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using System;

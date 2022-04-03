@@ -1,23 +1,18 @@
 ﻿using AutoMapper;
 using Domain.Extensions.Other;
-using Domain.Interfaces.Fundamentals.Request;
 using Domain.Models.Dtos.Fundamentals.Requests;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.ModelBinders
+namespace Domain.Models.Binders
 {
     public class GetsRequestModelBinder : IModelBinder
     {
-        private readonly IMapper _mapper;
 
-        public GetsRequestModelBinder(AutoMapper.IMapper mapper)
+        public GetsRequestModelBinder()
         {
-            this._mapper = mapper;
         }
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
