@@ -65,7 +65,7 @@ namespace Domain.Configs.Swagger
             {
                 foreach (var value in ConstructorArguments)
                 {
-                    if (Helpers.ConstVariables.HttpNames.AcceptLanguageMethods.FirstOrDefault(x => x == value.Value.ToString()) != null)
+                    if (Helpers.ConstVariables.HttpNames.AcceptLanguageMethods.FirstOrDefault(x => x == value.Value?.ToString()) != null)
                     {
                         return true;
                     }

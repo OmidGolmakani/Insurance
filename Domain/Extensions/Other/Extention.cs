@@ -17,7 +17,7 @@ namespace Domain.Extensions.Other
         {
             try
             {
-                if (x.Length == 0)
+                if (x?.Length == 0)
                 {
                     return 0;
                 }
@@ -118,7 +118,7 @@ namespace Domain.Extensions.Other
         {
             try
             {
-                if (x.Length == 0)
+                if (x?.Length == 0)
                 {
                     return 0;
                 }
@@ -140,7 +140,7 @@ namespace Domain.Extensions.Other
         {
             try
             {
-                if (x.Length == 0)
+                if (x?.Length == 0)
                 {
                     return 0;
                 }
@@ -162,7 +162,7 @@ namespace Domain.Extensions.Other
         {
             try
             {
-                if (x.Length == 0)
+                if (x?.Length == 0)
                 {
                     return DateTime.Now;
                 }
@@ -510,7 +510,7 @@ namespace Domain.Extensions.Other
                 throw new Exception("ConvertBooleanToString", ex);
             }
         }
-        public static string ListToString<T>(this List<T> x,string Seprator = "<br/>")
+        public static string ListToString<T>(this List<T> x, string Seprator = "<br/>")
         {
             try
             {
@@ -538,7 +538,7 @@ namespace Domain.Extensions.Other
         }
         public static MyException ToJson(this MyException exception, ErrorResponse error)
         {
-            return new (Newtonsoft.Json.JsonConvert.SerializeObject(error));
+            return new(Newtonsoft.Json.JsonConvert.SerializeObject(error));
         }
     }
 }

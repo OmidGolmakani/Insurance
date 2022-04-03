@@ -49,6 +49,7 @@ namespace Domain.Repositories.Fundamentals
             _dbFactory = dbFactory;
             this._mapper = mapper;
             this._HttpContext = httpContext.HttpContext;
+            Helpers.Globals.JWTTokenManager.HttpContext = _HttpContext;
         }
         public Repository(DbFactory dbFactory)
         {
@@ -118,7 +119,7 @@ namespace Domain.Repositories.Fundamentals
         }
         private string CreateWhereClose(TGetsRequest request, bool includeDeleted = false)
         {
-            var Propertes = request.GetType().GetProperties().Where(p => typeof(IPageRequest)
+            var Propertes = request?.GetType()?.GetProperties()?.Where(p => typeof(IPageRequest)
             .GetProperties().Select(p => p.Name).ToList().Contains(p.Name) == false).ToList();
             string where = "";
             if (request != null)
@@ -180,7 +181,7 @@ namespace Domain.Repositories.Fundamentals
                                 parameter = null;
                                 break;
                         }
-                        if (parameter.value != null && parameter.value.ToString() != "")
+                        if (string.IsNullOrEmpty(parameter?.value?.ToString()) == false)
                         {
                             where += $"{property.Name} {parameter.Condition} {parameter.value}";
                             if (property.Name != Propertes.LastOrDefault().Name)
@@ -211,6 +212,7 @@ namespace Domain.Repositories.Fundamentals
         }
         private string Pageing(TGetsRequest request)
         {
+            if (request == null) return "";
             if (request.PageSize == 0) request.PageSize = int.MaxValue;
             return $"{Environment.NewLine}ORDER BY {typeof(TEntity).GetProperties().FirstOrDefault().Name}{Environment.NewLine}OFFSET {request.PageSize * request.PageIndex} ROWS FETCH NEXT {request.PageSize} ROWS ONLY ";
         }

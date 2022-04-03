@@ -19,9 +19,5 @@ namespace Domain.Models.Dtos.Requests.InsuranceTitles
         public string Name { get; set; }
         public string Description { get; set; }
         public bool? Active { get; set; }
-        //[DefaultValue(false)]
-        //[Required]
-        //[NotMapped]
-        //public bool GetOutherLanguageData { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace OnlineSellAPI.Controllers
         }
 
         [HttpGet(HttpNames.Gets)]
-        public async Task<IActionResult> Gets([FromQuery] GetInsuranceTitlesLanguageDataRequest request, bool includeDeleted = false)
+        public async Task<IActionResult> Gets([FromQuery][ModelBinder] GetInsuranceTitlesLanguageDataRequest request, bool includeDeleted = false)
         {
             var result = await _InsuranceTitleLanguageDataService.Get(request, includeDeleted);
             return Ok(result);

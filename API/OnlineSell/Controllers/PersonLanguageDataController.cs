@@ -36,7 +36,7 @@ namespace OnlineSellAPI.Controllers
         }
 
         [HttpGet(HttpNames.Gets)]
-        public async Task<IActionResult> Gets([FromQuery] GetPeopleLanguageDataRequest request, bool includeDeleted = false)
+        public async Task<IActionResult> Gets([FromQuery][ModelBinder] GetPeopleLanguageDataRequest request, bool includeDeleted = false)
         {
             var result = await _PersonLanguageDataService.Get(request, includeDeleted);
             return Ok(result);

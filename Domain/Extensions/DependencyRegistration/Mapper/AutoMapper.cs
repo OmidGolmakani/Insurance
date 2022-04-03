@@ -12,7 +12,7 @@ namespace Domain.Extensions.DependencyRegistration.Mapper
                 cfg.AddProfile(new UserProfile());
                 cfg.AddProfile(new InsuranceTitleProfile());
                 cfg.AddProfile(new InsuranceTitleLanguageDataProfile());
-
+                cfg.AddProfile(new OrderProfile());
 
             });
             var mapper = Config.CreateMapper();

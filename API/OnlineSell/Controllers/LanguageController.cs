@@ -42,7 +42,7 @@ namespace OnlineSellAPI.Controllers
         }
 
         [HttpGet(HttpNames.Gets)]
-        public async Task<IActionResult> Gets([FromQuery] GetLanguagesRequest request, bool includeDeleted = false)
+        public async Task<IActionResult> Gets([FromQuery][ModelBinder] GetLanguagesRequest request, bool includeDeleted = false)
         {
             return Ok(await _LanguageService.Get(request, includeDeleted));
         }

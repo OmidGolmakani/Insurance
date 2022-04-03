@@ -45,7 +45,7 @@ namespace OnlineSellAPI.Controllers
         }
 
         [HttpGet(HttpNames.Gets)]
-        public async Task<IActionResult> Gets([FromQuery] GetPeopleRequest request, bool includeDeleted = false)
+        public async Task<IActionResult> Gets([FromQuery][ModelBinder] GetPeopleRequest request, bool includeDeleted = false)
         {
             var result = await _PersonService.Get<long, PersonResponse, PersonLanguageDataResponse>(request);
             return Ok(result);
