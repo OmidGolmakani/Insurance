@@ -7,6 +7,7 @@ namespace Domain.Models.Dtos.Fundamentals.Requests
         where TIdentity : struct
     {
         [Required]
+        [RegularExpression("(.*[1-9].*)|(.*[.].*[1-9].*)")]
         public virtual TIdentity Id { get; set; }
     }
 }
