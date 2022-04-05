@@ -20,8 +20,8 @@ namespace Domain.Models.Dtos.Responses.CompanyLanguageDatas
         public int LanguageId { get; set; }
         [JsonPropertyName("Name")]
         public string OtherLanguageName { get; set; }
-        [JsonPropertyName("Description")]
-        public string OtherLanguageDescription { get; set; }
+        [JsonPropertyName("RegisterCode")]
+        public string OtherRegisterCode { get; set; }
         public string AcceptLanguage { get; set; }
 
     }
