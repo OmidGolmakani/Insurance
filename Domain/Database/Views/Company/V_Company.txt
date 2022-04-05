@@ -1,0 +1,9 @@
+﻿CREATE OR ALTER VIEW [dbo].[V_Company]
+AS
+SELECT        dbo.Company.Id, dbo.Company.Name, dbo.Company.IsDeleted, dbo.Company.DeletedDate, dbo.Company.DeletedBy, dbo.Company.CreatedDate, dbo.Company.CreatedBy, dbo.Company.LastModified, 
+                         dbo.Company.LastModifiedBy, dbo.Company.RegisterCode, dbo.Company.RegisterDate, dbo.Company.UserId, dbo.CompanyLanguageData.Id AS OtherLanguageId, dbo.CompanyLanguageData.Name AS OtherLanguageName, 
+                         dbo.CompanyLanguageData.RegisterCode AS OtherLanguageRegiterName, dbo.AspNetUsers.UserName, dbo.Language.LanguageName, dbo.Language.AcceptLanguage
+FROM            dbo.Company INNER JOIN
+                         dbo.CompanyLanguageData ON dbo.Company.Id = dbo.CompanyLanguageData.KeyId INNER JOIN
+                         dbo.AspNetUsers ON dbo.Company.UserId = dbo.AspNetUsers.Id INNER JOIN
+                         dbo.Language ON dbo.CompanyLanguageData.LanguageId = dbo.Language.Id AND dbo.AspNetUsers.LanguageId = dbo.Language.Id

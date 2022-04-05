@@ -1,0 +1,8 @@
+﻿CREATE OR ALTER VIEW [dbo].[V_CompanyLanguageData]
+AS
+SELECT        dbo.CompanyLanguageData.Id, dbo.CompanyLanguageData.KeyId, dbo.CompanyLanguageData.LanguageId, dbo.CompanyLanguageData.RegisterCode, dbo.CompanyLanguageData.Name, 
+                         dbo.CompanyLanguageData.IsDeleted, dbo.CompanyLanguageData.DeletedDate, dbo.CompanyLanguageData.DeletedBy, dbo.CompanyLanguageData.CreatedDate, dbo.CompanyLanguageData.CreatedBy, 
+                         dbo.CompanyLanguageData.LastModified, dbo.CompanyLanguageData.LastModifiedBy, dbo.Language.LanguageName, dbo.Language.AcceptLanguage
+FROM            dbo.CompanyLanguageData INNER JOIN
+                         dbo.Language ON dbo.CompanyLanguageData.LanguageId = dbo.Language.Id
+
