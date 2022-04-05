@@ -8,7 +8,10 @@ namespace Domain.Models.Validations.Company
         public CompanyValidation()
         {
             CompanyLanguageDataValidation languageValidation = new();
-          
+            RuleFor(p => p.UserId).NotNull();
+            RuleFor(p => p.Name).NotNull();
+            RuleFor(p => p.RegisterCode).NotNull();
+            RuleFor(p=> p.RegisterDate).NotNull();
             RuleForEach(p => p.CompanyLanguageDatas).SetValidator(languageValidation);
         }
     }
