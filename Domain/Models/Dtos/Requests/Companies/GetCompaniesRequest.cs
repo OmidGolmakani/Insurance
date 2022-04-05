@@ -1,7 +1,7 @@
 ﻿using Domain.Models.Dtos.Fundamentals.Requests;
 using System;
 
-namespace Domain.Models.Dtos.Requests.InsuranceTitles
+namespace Domain.Models.Dtos.Requests.Companies
 {
     public class GetCompaniesRequest : GetsRequest
     {

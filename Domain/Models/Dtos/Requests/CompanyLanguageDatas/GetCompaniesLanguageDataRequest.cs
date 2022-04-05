@@ -1,8 +1,7 @@
 ﻿using Domain.Interfaces.Fundamentals.Request;
 using Domain.Models.Dtos.Fundamentals.Requests;
-using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models.Dtos.Requests.InsuranceTitleLanguageDatas
+namespace Domain.Models.Dtos.Requests.CompanyLanguageDatas
 {
     public class GetCompaniesLanguageDataRequest : GetsRequest, IGetsLanguageDataRequest<long>
     {

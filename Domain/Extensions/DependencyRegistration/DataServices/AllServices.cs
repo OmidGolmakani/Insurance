@@ -15,12 +15,25 @@ namespace Domain.Extensions.DependencyRegistration
         public static IServiceCollection AddDataServises(this IServiceCollection services)
         {
             services.AddScoped(typeof(IService<,,,,,,,>), typeof(Service<,,,,,,,>));
+            #region Insurance Title
             services.AddInsuranceTitleServices();
             services.AddInsuranceTitleLanguageDataServices();
+            #endregion Insurance Title
+            #region User
             services.AddUserServices();
+            #endregion User
+            #region Language
             services.AddLanguageServices();
+            #endregion Language
+            #region Person
             services.AddPersonLanguageDataServices();
             services.AddPersonServices();
+            #endregion Person
+            #region Company
+            services.AddCompanyLanguageDataServices();
+            services.AddCompanyServices();
+            #endregion Company
+
             return services;
         }
     }

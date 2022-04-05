@@ -9,10 +9,24 @@ namespace Domain.Extensions.DependencyRegistration.Mapper
         {
             var Config = new AutoMapper.MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new UserProfile());
+                #region User
+                cfg.AddProfile(new UserProfile()); 
+                #endregion
+                #region Insurance Title
                 cfg.AddProfile(new InsuranceTitleProfile());
-                cfg.AddProfile(new InsuranceTitleLanguageDataProfile());
+                cfg.AddProfile(new InsuranceTitleLanguageDataProfile()); 
+                #endregion Insurance Title
+                #region Order
                 cfg.AddProfile(new OrderProfile());
+                #endregion Order
+                #region Person
+                cfg.AddProfile(new PersonProfile());
+                cfg.AddProfile(new PersonLanguageDataProfile());
+                #endregion Person
+                #region Company
+                cfg.AddProfile(new CompanyProfile());
+                cfg.AddProfile(new CompanyLanguageDataProfile()); 
+                #endregion Company
 
             });
             var mapper = Config.CreateMapper();

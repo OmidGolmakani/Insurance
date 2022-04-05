@@ -1,11 +1,11 @@
 ﻿using Domain.Interfaces.Fundamentals.Request;
 using Domain.Models.Dtos.Fundamentals.Requests;
-using Domain.Models.Dtos.Requests.InsuranceTitleLanguageDatas;
+using Domain.Models.Dtos.Requests.CompanyLanguageDatas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models.Dtos.Requests.InsuranceTitles
+namespace Domain.Models.Dtos.Requests.Companies
 {
     public class EditCompanyRequest : EditRequest<long>, IListDataLanguageRequest<long, EditCompanyLanguageDataRequest>
     {

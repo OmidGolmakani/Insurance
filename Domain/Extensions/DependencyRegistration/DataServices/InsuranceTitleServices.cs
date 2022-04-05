@@ -11,5 +11,10 @@ namespace Domain.Extensions.DependencyRegistration.DataServices
             services.AddScoped<IInsuranceTitleService, InsuaranceTitleService>();
             return services;
         }
+        public static IServiceCollection AddInsuranceTitleLanguageDataServices(this IServiceCollection services)
+        {
+            services.AddScoped<IInsuranceTitleLanguageDataService, InsuaranceTitleLanguageDataService>();
+            return services;
+        }
     }
 }

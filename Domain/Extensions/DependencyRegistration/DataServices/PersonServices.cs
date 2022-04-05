@@ -11,5 +11,10 @@ namespace Domain.Extensions.DependencyRegistration.DataServices
             services.AddScoped<IPersonService, PersonService>();
             return services;
         }
+        public static IServiceCollection AddPersonLanguageDataServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPersonLanguageDataService, PersonLanguageDataService>();
+            return services;
+        }
     }
 }

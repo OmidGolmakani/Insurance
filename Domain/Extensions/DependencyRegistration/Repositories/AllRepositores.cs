@@ -10,12 +10,24 @@ namespace Domain.Extensions.DependencyRegistration
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<,,,,>), typeof(Repository<,,,,>));
-            services.AddUserRepositories();
+            #region User
+            services.AddUserRepositories(); 
+            #endregion User
+            #region Insurance Title
             services.AddInsuranceTitleRepositories();
             services.AddInsuranceTitleLanguageDataRepositores();
+            #endregion Insurance Title
+            #region Language
             services.AddLanguageRepositories();
+            #endregion Language
+            #region Person
             services.AddPersonRepositores();
-            services.AddPersonLanguageDataRepositores();
+            services.AddPersonLanguageDataRepositores(); 
+            #endregion Person
+            #region Company
+            services.AddCompanyRepositories();
+            services.AddCompanyLanguageDataRepositores();
+            #endregion Company
             return services;
         }
     }

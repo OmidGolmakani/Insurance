@@ -10,5 +10,10 @@ namespace Domain.Extensions.DependencyRegistration.Repositories
             services.AddScoped<IPersonRepository, Domain.Repositories.PersonRepository>();
             return services;
         }
+        public static IServiceCollection AddPersonLanguageDataRepositores(this IServiceCollection services)
+        {
+            services.AddScoped<IPersonLanguageDataRepository, Domain.Repositories.PersonLanguageDataRepository>();
+            return services;
+        }
     }
 }
