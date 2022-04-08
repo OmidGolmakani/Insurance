@@ -25,9 +25,12 @@ namespace Domain.Extensions.DependencyRegistration.Mapper
                 #endregion Person
                 #region Company
                 cfg.AddProfile(new CompanyProfile());
-                cfg.AddProfile(new CompanyLanguageDataProfile()); 
+                cfg.AddProfile(new CompanyLanguageDataProfile());
                 #endregion Company
-
+                #region User Detail Field
+                cfg.AddProfile(new UserDetailFieldProfile());
+                cfg.AddProfile(new UserDetailFieldLanguageDataProfile());
+                #endregion User Detail Field
             });
             var mapper = Config.CreateMapper();
             services.AddSingleton(mapper);

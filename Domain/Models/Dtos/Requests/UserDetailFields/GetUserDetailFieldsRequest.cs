@@ -3,16 +3,15 @@ using Domain.Models.Dtos.Fundamentals.Requests;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models.Dtos.Requests.People
+namespace Domain.Models.Dtos.Requests.UserDetailFields
 {
-    public class GetPeopleRequest : GetsRequest
+    public class GetUserDetailFieldsRequest : GetsRequest
     {
         [Required]
         [Numeric]
         public long UserId { get; set; }
-        public Models.Enums.Person.Gender Gender { get; set; }
         public string Name { get; set; }
-        public string Family { get; set; }
-        public DateTime? BirthDate { get; set; }
+        public string RegisterCode { get; set; }
+        public DateTime? RegisterDate { get; set; }
     }
 }

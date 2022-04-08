@@ -33,7 +33,10 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddCompanyLanguageDataServices();
             services.AddCompanyServices();
             #endregion Company
-
+            #region User Detail Field
+            services.AddUserDetailFieldServices();
+            services.AddUserDetailFieldLanguageDataServices();
+            #endregion User Detail Field
             return services;
         }
     }

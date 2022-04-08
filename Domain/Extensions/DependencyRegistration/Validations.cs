@@ -4,6 +4,7 @@ using Domain.Models.Validations.InsuranceTitle;
 using Domain.Models.Validations.Language;
 using Domain.Models.Validations.Person;
 using Domain.Models.Validations.User;
+using Domain.Models.Validations.UserDetailField;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Extensions.DependencyRegistration
@@ -26,10 +27,15 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddScoped<FluentValidation.IValidator<PersonLanguageData>, PersonLanguageDataValidation>();
             services.AddScoped<FluentValidation.IValidator<Person>, PersonValidation>();
             #endregion Person
-            #region Person
+            #region Company
             services.AddScoped<FluentValidation.IValidator<CompanyLanguageData>, CompanyLanguageDataValidation>();
             services.AddScoped<FluentValidation.IValidator<Company>, CompanyValidation>();
-            #endregion Person
+            #endregion Company
+            #region User Detail Field 
+            services.AddScoped<FluentValidation.IValidator<UserDetailField>, UserDetailFieldValidation>();
+            services.AddScoped<FluentValidation.IValidator<UserDetailFieldLanguageData>, UserDetailFieldLanguageDataValidation>();
+
+            #endregion Language
 
             return services;
         }

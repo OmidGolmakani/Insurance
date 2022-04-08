@@ -1,0 +1,8 @@
+﻿CREATE OR ALTER VIEW [V_UserDetailFieldLanguageData]
+AS
+SELECT        dbo.UserDetailFieldLanguageData.Id, dbo.UserDetailFieldLanguageData.KeyId, dbo.UserDetailFieldLanguageData.LanguageId, dbo.UserDetailFieldLanguageData.Name, dbo.UserDetailFieldLanguageData.DisplayName, 
+                         dbo.UserDetailFieldLanguageData.IsDeleted, dbo.UserDetailFieldLanguageData.DeletedDate, dbo.UserDetailFieldLanguageData.DeletedBy, dbo.UserDetailFieldLanguageData.CreatedDate, 
+                         dbo.UserDetailFieldLanguageData.CreatedBy, dbo.UserDetailFieldLanguageData.LastModified, dbo.UserDetailFieldLanguageData.LastModifiedBy, dbo.Language.LanguageName, dbo.Language.AcceptLanguage
+FROM            dbo.UserDetailFieldLanguageData INNER JOIN
+                         dbo.Language ON dbo.UserDetailFieldLanguageData.LanguageId = dbo.Language.Id
+GO

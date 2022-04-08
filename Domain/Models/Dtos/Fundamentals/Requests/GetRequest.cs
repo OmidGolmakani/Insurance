@@ -1,5 +1,5 @@
-﻿using Domain.Attributes;
-using Domain.Interfaces.Fundamentals.Request;
+﻿using Domain.Interfaces.Fundamentals.Request;
+using Domain.Models.AttributeValidations;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Dtos.Fundamentals.Requests

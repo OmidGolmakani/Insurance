@@ -1,0 +1,12 @@
+﻿CREATE OR ALTER VIEW [V_UserDetailField]
+AS
+SELECT        dbo.UserDetailField.Id, dbo.UserDetailField.UserId, dbo.UserDetailField.TypeId, dbo.UserDetailField.Name, dbo.UserDetailField.DisplayName, dbo.UserDetailField.[Order], dbo.UserDetailField.Active, 
+                         dbo.UserDetailField.IsDefault, dbo.UserDetailField.UserDetailId, dbo.UserDetailField.UserDetailLookupFieldId, dbo.UserDetailField.IsDeleted, dbo.UserDetailField.DeletedDate, dbo.UserDetailField.DeletedBy, 
+                         dbo.UserDetailField.CreatedDate, dbo.UserDetailField.CreatedBy, dbo.UserDetailField.LastModified, dbo.UserDetailField.LastModifiedBy, dbo.UserDetailFieldLanguageData.Id AS OtherLanguageId, 
+                         dbo.UserDetailFieldLanguageData.KeyId, dbo.UserDetailFieldLanguageData.LanguageId, dbo.UserDetailFieldLanguageData.Name AS OtherLanguageName, 
+                         dbo.UserDetailFieldLanguageData.DisplayName AS OtherLanguageDisplayName, dbo.Language.LanguageName, dbo.Language.AcceptLanguage
+FROM            dbo.UserDetailField INNER JOIN
+                         dbo.UserDetailFieldLanguageData ON dbo.UserDetailField.Id = dbo.UserDetailFieldLanguageData.KeyId INNER JOIN
+                         dbo.Language ON dbo.UserDetailFieldLanguageData.LanguageId = dbo.Language.Id
+GO
+

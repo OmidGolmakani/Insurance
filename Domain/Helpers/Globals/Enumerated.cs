@@ -54,5 +54,10 @@ namespace Domain.Helpers.Globals
         {
             return Enum.GetName(@enum, Id)?.Trim() ?? "";
         }
+        internal static bool EnumValidator(Type @enum, byte Id)
+        {
+            var type = Helpers.Globals.Enumerated.Find(@enum,Id);
+            return type != "" ? true : false;
+        }
     }
 }

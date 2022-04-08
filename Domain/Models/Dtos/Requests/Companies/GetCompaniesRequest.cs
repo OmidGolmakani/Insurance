@@ -1,4 +1,4 @@
-﻿using Domain.Attributes;
+﻿using Domain.Models.AttributeValidations;
 using Domain.Models.Dtos.Fundamentals.Requests;
 using System;
 using System.ComponentModel.DataAnnotations;

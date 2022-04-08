@@ -28,6 +28,10 @@ namespace Domain.Extensions.DependencyRegistration
             services.AddCompanyRepositories();
             services.AddCompanyLanguageDataRepositores();
             #endregion Company
+            #region User Detail Field
+            services.AddUserDetailFieldRepositories();
+            services.AddUserDetailFieldLanguageDataRepositores();
+            #endregion User Detail Field
             return services;
         }
     }

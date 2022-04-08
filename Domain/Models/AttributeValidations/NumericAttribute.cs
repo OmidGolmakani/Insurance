@@ -1,13 +1,7 @@
-﻿using Domain.Extensions.Other;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Domain.Attributes
+namespace Domain.Models.AttributeValidations
 {
     public class NumericAttribute : RegularExpressionAttribute
     {
