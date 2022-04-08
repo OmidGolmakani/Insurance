@@ -1,6 +1,6 @@
 ﻿CREATE OR ALTER VIEW [dbo].[V_Language]
 AS
-SELECT        Id, LanguageName, Direction, IsDeleted, DeletedDate, DeletedBy, CreatedDate, CreatedBy, LastModified, LastModifiedBy, LanguageId, AcceptLanguage, Active
+SELECT        Id, LanguageName, Direction, IsDeleted, DeletedDate, DeletedBy, CreatedDate, CreatedBy, LastModified, LastModifiedBy, AcceptLanguage, Active
 FROM            dbo.Language
 GO
 

@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.Fundamentals.Request;
+﻿using Domain.Attributes;
+using Domain.Interfaces.Fundamentals.Request;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Dtos.Fundamentals.Requests
@@ -7,7 +8,7 @@ namespace Domain.Models.Dtos.Fundamentals.Requests
         where TIdentity : struct
     {
         [Required]
-        [RegularExpression("(.*[1-9].*)|(.*[.].*[1-9].*)")]
+        [Numeric]
         public virtual TIdentity Id { get; set; }
     }
 }

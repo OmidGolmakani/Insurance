@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Domain.Models.Entities;
+using System.Reflection;
+using System.Linq;
 
 namespace Domain.Data.DbContext
 {
@@ -23,6 +25,12 @@ namespace Domain.Data.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region SchemaDefinitions
+            var configs = AppDomain.CurrentDomain.GetAssemblies()
+                       .SelectMany(t => t.GetTypes())
+                       .Where(t => t.IsClass && t.Namespace == "Domain.Data.SchemaDefinitions").ToList();
+            foreach (var config in configs)
+            {
+            }
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.InsuranceCompany());

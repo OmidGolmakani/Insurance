@@ -15,13 +15,13 @@ namespace Domain.Data.SchemaDefinitions
         {
             builder.ToTable("InsurancePoint");
             builder.Property(p => p.PointParameterId).IsRequired();
-            builder.Property(p=> p.StartDate).IsRequired();
-            builder.Property(p=> p.EndDate).IsRequired();
-            builder.Property(p=> p.RangeValue).IsRequired();
+            builder.Property(p => p.StartDate).IsRequired();
+            builder.Property(p => p.EndDate).IsRequired();
+            builder.Property(p => p.RangeValue).IsRequired();
             builder.HasOne(p => p.InsurancePointParameter)
                    .WithMany(p => p.InsurancePoints)
                    .OnDelete(DeleteBehavior.NoAction)
-                   .HasForeignKey(p=> p.PointParameterId);
+                   .HasForeignKey(p => p.PointParameterId);
             base.Configure(builder);
         }
     }

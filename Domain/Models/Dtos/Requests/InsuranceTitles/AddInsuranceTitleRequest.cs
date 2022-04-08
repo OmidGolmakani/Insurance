@@ -9,7 +9,9 @@ namespace Domain.Models.Dtos.Requests.InsuranceTitles
 {
     public class AddInsuranceTitleRequest : AddRequest, IListDataLanguageRequest<long, AddInsuranceTitleLanguageDataRequest>
     {
+        [DefaultValue(null)]
         public decimal? Code { get; set; }
+        [DefaultValue(null)]
         public int? ParentId { get; set; }
         [Required]
         public byte level { get; set; }
