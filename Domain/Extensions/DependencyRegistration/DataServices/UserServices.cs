@@ -7,7 +7,7 @@ namespace Domain.Extensions.DependencyRegistration.DataServices
     {
         public static IServiceCollection AddUserServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, Services.Data.Global.UserService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

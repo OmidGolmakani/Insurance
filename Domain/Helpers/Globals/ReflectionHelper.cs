@@ -47,13 +47,6 @@ namespace Domain.Helpers.Globals
 
             }
         }
-        public virtual void CreateNewInstance(string nameSpace)
-        {
-            foreach (Type type in GetTypesInNamespace(nameSpace).Where(r => r.IsClass))
-            {
-                Activator.CreateInstance(type);
-            }
-        }
         public class Enums
         {
             public enum registerType

@@ -7,7 +7,7 @@ using static Domain.Helpers.Globals.ReflectionHelper.Enums;
 
 namespace Domain.Extensions.DependencyRegistration
 {
-    public static partial class AllServices
+    public static partial class Services
     {
         /// <summary>
         /// Registration of data services
