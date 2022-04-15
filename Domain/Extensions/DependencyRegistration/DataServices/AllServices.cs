@@ -1,7 +1,9 @@
 ﻿using Domain.Extensions.DependencyRegistration.DataServices;
+using Domain.Helpers.ConstVariables;
 using Domain.Interfaces.Fundamentals.DataService;
 using Domain.Services.Data.Fundamentals;
 using Microsoft.Extensions.DependencyInjection;
+using static Domain.Helpers.Globals.ReflectionHelper.Enums;
 
 namespace Domain.Extensions.DependencyRegistration
 {
@@ -15,28 +17,11 @@ namespace Domain.Extensions.DependencyRegistration
         public static IServiceCollection AddDataServises(this IServiceCollection services)
         {
             services.AddScoped(typeof(IService<,,,,,,,>), typeof(Service<,,,,,,,>));
-            #region Insurance Title
-            services.AddInsuranceTitleServices();
-            services.AddInsuranceTitleLanguageDataServices();
-            #endregion Insurance Title
+            Helpers.Globals.ReflectionHelper reflectionHelper = new();
+            reflectionHelper.Register(NameSpaces.DataServices, services, registerType.Scope);
             #region User
             services.AddUserServices();
             #endregion User
-            #region Language
-            services.AddLanguageServices();
-            #endregion Language
-            #region Person
-            services.AddPersonLanguageDataServices();
-            services.AddPersonServices();
-            #endregion Person
-            #region Company
-            services.AddCompanyLanguageDataServices();
-            services.AddCompanyServices();
-            #endregion Company
-            #region User Detail Field
-            services.AddUserDetailFieldServices();
-            services.AddUserDetailFieldLanguageDataServices();
-            #endregion User Detail Field
             return services;
         }
     }

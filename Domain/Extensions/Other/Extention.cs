@@ -526,7 +526,7 @@ namespace Domain.Extensions.Other
             if (List.Count == 0) return null;
             return Newtonsoft.Json.JsonConvert.SerializeObject(List);
         }
-        public static MyException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
+        public static CustomException.CustomException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
         {
             var Result = Newtonsoft.Json.JsonConvert.SerializeObject((from e in x
                                                                       select new ErrorResponse()
@@ -534,9 +534,9 @@ namespace Domain.Extensions.Other
                                                                           Code = e.ErrorCode.ToInt(),
                                                                           Description = e.ErrorMessage
                                                                       }).ToList());
-            return new MyException(Result);
+            return new CustomException.CustomException(Result);
         }
-        public static MyException ToJson(this MyException exception, ErrorResponse error)
+        public static CustomException.CustomException ToJson(this CustomException.CustomException exception, ErrorResponse error)
         {
             return new(Newtonsoft.Json.JsonConvert.SerializeObject(error));
         }

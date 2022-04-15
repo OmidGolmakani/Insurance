@@ -1,7 +1,9 @@
 ﻿using Domain.Extensions.DependencyRegistration.Repositories;
+using Domain.Helpers.ConstVariables;
 using Domain.Interfaces.Fundamentals.Repository;
 using Domain.Repositories.Fundamentals;
 using Microsoft.Extensions.DependencyInjection;
+using static Domain.Helpers.Globals.ReflectionHelper.Enums;
 
 namespace Domain.Extensions.DependencyRegistration
 {
@@ -10,28 +12,11 @@ namespace Domain.Extensions.DependencyRegistration
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<,,,,>), typeof(Repository<,,,,>));
+            Helpers.Globals.ReflectionHelper reflectionHelper = new();
+            reflectionHelper.Register(NameSpaces.Repositories,services,registerType.Scope);
             #region User
-            services.AddUserRepositories(); 
+            services.AddUserRepositories();
             #endregion User
-            #region Insurance Title
-            services.AddInsuranceTitleRepositories();
-            services.AddInsuranceTitleLanguageDataRepositores();
-            #endregion Insurance Title
-            #region Language
-            services.AddLanguageRepositories();
-            #endregion Language
-            #region Person
-            services.AddPersonRepositores();
-            services.AddPersonLanguageDataRepositores(); 
-            #endregion Person
-            #region Company
-            services.AddCompanyRepositories();
-            services.AddCompanyLanguageDataRepositores();
-            #endregion Company
-            #region User Detail Field
-            services.AddUserDetailFieldRepositories();
-            services.AddUserDetailFieldLanguageDataRepositores();
-            #endregion User Detail Field
             return services;
         }
     }

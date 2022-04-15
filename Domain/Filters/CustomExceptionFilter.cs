@@ -14,28 +14,28 @@ namespace Domain.Filters
         }
         private IActionResult ErrorHandle(ExceptionContext context)
         {
-            MyException exception = new MyException();
+            CustomException.CustomException exception = new CustomException.CustomException();
 
-            if (context.Exception.GetType() == typeof(MyException))
+            if (context.Exception.GetType() == typeof(CustomException.CustomException))
             {
-                if (((MyException)context.Exception).Error.Code <= 0)
+                if (((CustomException.CustomException)context.Exception).Error.Code <= 0)
                 {
-                    exception = new MyException("خطای ناشناخته");
+                    exception = new CustomException.CustomException("خطای ناشناخته");
                 }
                 else
                 {
-                    exception = (MyException)context.Exception;
+                    exception = (CustomException.CustomException)context.Exception;
                 }
             }
             else if (context.Exception.GetType() == typeof(FluentValidation.ValidationException))
             {
-                exception = new MyException(400, context.Exception.Message);
+                exception = new CustomException.CustomException(400, context.Exception.Message);
 
             }
             else
             {
 
-                exception = new MyException(context.Exception.Message, (MyException)context.Exception.InnerException);
+                exception = new CustomException.CustomException(context.Exception.Message, (CustomException.CustomException)context.Exception.InnerException);
             }
 
             if (exception.Error != null && string.IsNullOrEmpty(exception.Error.Description) == false)

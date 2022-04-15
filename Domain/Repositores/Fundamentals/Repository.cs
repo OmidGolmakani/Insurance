@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dapper;
+using Domain.CustomException;
 using Domain.Data.DbContext;
 using Domain.Extensions.Other;
 using Domain.Interfaces.Fundamentals.Entity;
@@ -62,7 +63,10 @@ namespace Domain.Repositories.Fundamentals
         }
         public virtual TEntity Delete(TEntity entity)
         {
+            var Id = entity.Id;
+            var entityName = entity.GetType().Name;
             entity = DbSet.Find(entity.Id);
+            if (entity == null) throw new CustomNullReferenceException($"Record Id {Id} was not found for {entityName} entity.");
             entity.IsDeleted = true;
             entity.DeletedDate = DateTime.Now;
             return DbSet.Update(entity).Entity;

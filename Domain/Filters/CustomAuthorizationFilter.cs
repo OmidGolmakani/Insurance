@@ -46,7 +46,7 @@ namespace Domain.Filters
                         Code = context.HttpContext.Response.StatusCode
                     };
 
-                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
+                    throw new CustomException.CustomException(context.HttpContext.Response.StatusCode, Err.Description);
                 }
                 var token = context.HttpContext.Request.Headers["Authorization"].ToString();
                 if (token == "")
@@ -59,7 +59,7 @@ namespace Domain.Filters
                     };
 
                     Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
+                    throw new CustomException.CustomException(context.HttpContext.Response.StatusCode, Err.Description);
                 }
                 token = token.Substring(6, token.Length - 6).Trim();
 

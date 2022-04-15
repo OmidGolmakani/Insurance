@@ -95,7 +95,7 @@ namespace Domain.Helpers.Globals
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, parameters, out securityToken);
                 return principal;
             }
-            catch (MyException)
+            catch (CustomException.CustomException)
             {
                 return null;
             }
@@ -120,7 +120,7 @@ namespace Domain.Helpers.Globals
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, parameters, out securityToken);
                 return principal;
             }
-            catch (MyException)
+            catch (CustomException.CustomException)
             {
                 return null;
             }
@@ -137,7 +137,7 @@ namespace Domain.Helpers.Globals
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (MyException)
+                catch (CustomException.CustomException)
                 {
                     return null;
                 }
@@ -146,9 +146,9 @@ namespace Domain.Helpers.Globals
                 Claim usernameClaim = identity.FindFirst("Url");
                 return usernameClaim.Value;
             }
-            catch (MyException ex)
+            catch (CustomException.CustomException ex)
             {
-                throw new MyException("ValidatePermissionToken", ex);
+                throw new CustomException.CustomException("ValidatePermissionToken", ex);
             }
         }
         //public static string ValidateToken(string token,  Domain.Models.Dtos.Fundamentals.Response.ListResponse<UserResponse> user)
@@ -210,14 +210,14 @@ namespace Domain.Helpers.Globals
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (MyException)
+                catch (CustomException.CustomException)
                 {
                     return 0;
                 }
                 return identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
 
             }
-            catch (MyException)
+            catch (CustomException.CustomException)
             {
                 throw;
             }
@@ -244,14 +244,14 @@ namespace Domain.Helpers.Globals
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (MyException)
+                catch (CustomException.CustomException)
                 {
                     return 0;
                 }
                 return identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
 
             }
-            catch (MyException)
+            catch (CustomException.CustomException)
             {
                 throw;
             }

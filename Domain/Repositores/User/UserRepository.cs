@@ -46,7 +46,7 @@ namespace Domain.Repositories
             var result = _userManager.CreateAsync(entity).Result;
             if (result.Succeeded == false)
             {
-                throw new MyException(Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors));
+                throw new CustomException.CustomException(Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors));
             }
             return entity;
         }
